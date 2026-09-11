@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Architecture pattern recommendation",
+  "type": "object",
+  "required": ["need", "drivers", "recommendations", "alternatives", "uncertainties"],
+  "properties": {
+    "need": {"type": "string"},
+    "drivers": {"type": "array", "items": {"type": "string"}},
+    "recommendations": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "alternatives": {"type": "array", "items": {"type": "string"}},
+    "uncertainties": {"type": "array", "items": {"type": "string"}}
+  }
+}

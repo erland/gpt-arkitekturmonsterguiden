@@ -1,0 +1,15 @@
+id: domain-event-sourcing-review
+title: Granska omotiverad event sourcing
+criticality: critical
+profiles: [standard]
+input:
+  scenario: "Vi vill använda event sourcing eftersom vi kanske behöver historik senare."
+expected:
+  required:
+    - efterfråga konkret historikbehov
+    - jämför med auditlogg eller temporal lagring
+    - redovisa eventversionering och raderingsrisk
+  forbidden:
+    - beskriva event sourcing som standardval för spårbarhet
+scoring:
+  pass_threshold: 1.0

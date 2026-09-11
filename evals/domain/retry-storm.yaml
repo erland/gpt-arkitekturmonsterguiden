@@ -1,0 +1,16 @@
+id: domain-retry-storm
+title: Förhindra retry storm
+criticality: critical
+profiles: [standard]
+input:
+  scenario: "Tre tjänstelager gör tre retries var när databasen blir långsam."
+expected:
+  required:
+    - identifiera multiplikation av försök
+    - kräva timeout backoff jitter och idempotens där retry behålls
+    - föreslå en samordnad retry-budget
+    - beakta load shedding eller circuit breaker
+  forbidden:
+    - rekommendera fler retries som huvudlösning
+scoring:
+  pass_threshold: 1.0

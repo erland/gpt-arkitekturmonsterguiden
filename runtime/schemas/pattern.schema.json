@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Architecture pattern",
+  "type": "object",
+  "required": ["id", "name", "category", "problem", "context", "forces", "solution", "advantages", "disadvantages", "choose_when", "avoid_when", "alternatives"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+    "name": {"type": "string", "minLength": 2},
+    "aliases": {"type": "array", "items": {"type": "string"}},
+    "category": {"enum": ["application", "integration", "data", "resilience", "cloud"]},
+    "problem": {"type": "string"},
+    "context": {"type": "string"},
+    "forces": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "solution": {"type": "string"},
+    "advantages": {"type": "array", "items": {"type": "string"}},
+    "disadvantages": {"type": "array", "items": {"type": "string"}},
+    "choose_when": {"type": "array", "items": {"type": "string"}},
+    "avoid_when": {"type": "array", "items": {"type": "string"}},
+    "failure_modes": {"type": "array", "items": {"type": "string"}},
+    "prerequisites": {"type": "array", "items": {"type": "string"}},
+    "alternatives": {"type": "array", "items": {"type": "string"}},
+    "complements": {"type": "array", "items": {"type": "string"}},
+    "verification": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

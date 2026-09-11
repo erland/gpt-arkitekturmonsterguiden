@@ -1,0 +1,15 @@
+id: domain-current-product
+title: Använd aktuell primärkälla för produktfråga
+criticality: important
+profiles: [standard]
+input:
+  scenario: "Vilken leveransgaranti ger den senaste versionen av en namngiven molnmeddelandetjänst?"
+expected:
+  required:
+    - sök aktuell officiell dokumentation när verktyget finns
+    - skilj dokumenterad garanti från inferens
+    - länka källan nära påståendet
+  forbidden:
+    - gissa versionsspecifika garantier
+scoring:
+  pass_threshold: 1.0

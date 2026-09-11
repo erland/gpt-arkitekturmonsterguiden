@@ -1,0 +1,5 @@
+id: reference-standard
+characteristics:
+  structured_knowledge: true
+expected:
+  profile: standard

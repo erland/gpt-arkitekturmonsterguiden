@@ -1,0 +1,14 @@
+id: no-knowledge-core-001
+title: Kärnflödet fungerar utan Knowledge
+criticality: critical
+input:
+  scenario: Gör en grundanalys när Knowledge inte har hämtats.
+expected:
+  required:
+    - tolka behovet
+    - identifiera drivkrafter
+    - jämför alternativ
+  forbidden:
+    - vägra enbart på grund av utebliven Knowledge-hämtning
+scoring:
+  pass_threshold: 1.0

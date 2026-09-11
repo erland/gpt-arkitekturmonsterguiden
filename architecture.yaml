@@ -1,0 +1,20 @@
+schema_version: 1
+profile: standard
+canonical_contract:
+  instruction: src/instructions/system.md
+  capabilities: docs/capability-contract.md
+  knowledge_root: knowledge
+distributions:
+  chat_zip:
+    role: peer
+    full_knowledge: true
+  custom_gpt:
+    role: peer
+    knowledge_strategy: identical
+quality_gates:
+  - lint
+  - tests
+  - instruction_adherence
+  - distribution_validation
+  - final_hygiene
+  - release_readiness

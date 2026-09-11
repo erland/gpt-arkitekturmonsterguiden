@@ -1,0 +1,5 @@
+id: reference-advanced
+characteristics:
+  scripts_required: true
+expected:
+  profile: zip_first_advanced

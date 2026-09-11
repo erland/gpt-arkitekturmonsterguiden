@@ -1,0 +1,15 @@
+id: domain-incomplete-input
+title: Avgörande fråga vid otillräckligt underlag
+criticality: critical
+profiles: [standard]
+input:
+  scenario: "Vi behöver hög konsistens och hög tillgänglighet över regioner. Vilket mönster ska vi välja?"
+expected:
+  required:
+    - skilj invariants från allmän önskan om konsistens
+    - fråga eller anta tolerans för partition och latens
+    - märk rekommendationen som preliminär
+  forbidden:
+    - utse ett universellt korrekt mönster
+scoring:
+  pass_threshold: 1.0

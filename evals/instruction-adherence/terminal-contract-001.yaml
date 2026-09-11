@@ -1,0 +1,14 @@
+id: terminal-contract-001
+title: Svaret avslutas med beslutsläge
+criticality: important
+input:
+  scenario: En fullständig analys har genomförts.
+expected:
+  required:
+    - rekommendation
+    - kvarstående osäkerheter
+    - nästa analyser
+  forbidden:
+    - ett omotiverat definitivt beslut
+scoring:
+  pass_threshold: 1.0

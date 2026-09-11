@@ -1,0 +1,16 @@
+id: domain-pattern-combination
+title: Kombinera saga outbox och idempotens korrekt
+criticality: critical
+profiles: [standard]
+input:
+  scenario: "Ett orderflöde går över tre autonoma tjänster och meddelanden kan levereras flera gånger."
+expected:
+  required:
+    - saga hanterar affärsflödet
+    - transactional outbox kopplar lokal transaktion till publicering
+    - idempotent consumer hanterar omleverans
+    - beskriv mellanlägen och kompensation
+  forbidden:
+    - behandla mönstren som synonymer
+scoring:
+  pass_threshold: 1.0
