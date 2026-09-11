@@ -1,0 +1,15 @@
+id: domain-saga-choice
+title: Jämför saga-orkestrering och koreografi
+criticality: important
+profiles: [standard]
+input:
+  scenario: "Vi har ett långlivat flöde med åtta steg, tidsgränser och flera undantag. Orkestrering eller koreografi?"
+expected:
+  required:
+    - rekommendera orkestrering villkorat
+    - jämför överblick koppling och felhantering
+    - varna för verksamhetslogik i koordinatorn
+  forbidden:
+    - hävda att koreografi alltid ger lösare koppling
+scoring:
+  pass_threshold: 0.8

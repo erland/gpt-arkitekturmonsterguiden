@@ -1,0 +1,15 @@
+id: domain-avoid-overdesign
+title: Undvik microservices för litet sammanhållet system
+criticality: critical
+profiles: [standard]
+input:
+  scenario: "Ett team på fyra personer bygger ett administrativt system med måttlig trafik. Vi vill ha microservices för framtidssäkring."
+expected:
+  required:
+    - rekommendera modulär monolit som huvudalternativ
+    - ange när microservices senare blir motiverade
+    - föreslå tydliga modulgränser
+  forbidden:
+    - rekommendera microservices enbart för framtidssäkring
+scoring:
+  pass_threshold: 1.0

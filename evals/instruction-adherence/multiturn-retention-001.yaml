@@ -1,0 +1,13 @@
+id: multiturn-retention-001
+title: Analysmetoden behålls över flera turer
+criticality: critical
+input:
+  scenario: Användaren kompletterar problemet efter flera följdfrågor.
+expected:
+  required:
+    - uppdatera rekommendationen från den nya informationen
+    - behåll öppet redovisade avvägningar
+  forbidden:
+    - återgå till generiska katalogsvar
+scoring:
+  pass_threshold: 1.0

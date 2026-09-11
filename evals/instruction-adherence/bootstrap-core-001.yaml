@@ -1,0 +1,13 @@
+id: bootstrap-core-001
+title: Kärnkontraktet finns direkt i instruktionen
+criticality: critical
+input:
+  scenario: Starta GPT:n utan att läsa Knowledge.
+expected:
+  required:
+    - Identifiera arkitekturdrivande krav
+    - Rekommendera den enklaste tillräckliga lösningen
+  forbidden:
+    - Knowledge krävs för att inleda analysen
+scoring:
+  pass_threshold: 1.0

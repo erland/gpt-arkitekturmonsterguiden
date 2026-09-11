@@ -1,0 +1,16 @@
+id: domain-adr-draft
+title: Skapa balanserat ADR-underlag
+criticality: important
+profiles: [standard]
+input:
+  scenario: "Skapa ett ADR-underlag för valet mellan modulär monolit och microservices."
+expected:
+  required:
+    - märk beslutet som utkast om det inte är fattat
+    - koppla motiv till uttryckliga drivkrafter
+    - redovisa negativa konsekvenser
+    - ange alternativ och uppföljning
+  forbidden:
+    - presentera antaganden som beslutade fakta
+scoring:
+  pass_threshold: 0.8

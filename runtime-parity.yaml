@@ -1,0 +1,27 @@
+schema_version: 1
+reference: canonical_capability_contract
+capabilities:
+  - id: need-analysis
+    criticality: critical
+    chat_zip: equivalent
+    custom_gpt: equivalent
+  - id: pattern-recommendation
+    criticality: critical
+    chat_zip: equivalent
+    custom_gpt: equivalent
+  - id: tradeoff-comparison
+    criticality: critical
+    chat_zip: equivalent
+    custom_gpt: equivalent
+  - id: current-product-research
+    criticality: important
+    chat_zip: platform_dependent
+    custom_gpt: platform_dependent
+  - id: adr-draft
+    criticality: important
+    chat_zip: equivalent
+    custom_gpt: equivalent
+  - id: structured-json
+    criticality: optional
+    chat_zip: equivalent
+    custom_gpt: equivalent

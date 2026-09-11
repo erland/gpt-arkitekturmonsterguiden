@@ -1,0 +1,85 @@
+schema_version: 1
+project:
+  id: arkitekturmonsterguiden
+  name: Arkitekturmönsterguiden
+  language: sv
+analysis:
+  profile: standard
+  source: user-idea
+  characteristics:
+    structured_knowledge: true
+    repeatable_outputs: true
+    moderate_workflow: true
+instructions:
+  canonical: src/instructions/system.md
+  core_contract:
+    enabled: true
+    required_markers:
+      - "Identifiera arkitekturdrivande krav"
+      - "Rekommendera den enklaste tillräckliga lösningen"
+      - "Redovisa antaganden och osäkerheter"
+      - "När ett alternativ bör väljas i stället"
+    required_runtime_dependencies: []
+    max_required_file_hops: 1
+    knowledge_may_not_be_required_for_core_behavior: true
+structure:
+  conversation_starters:
+    path: src/conversation-starters
+  runtime_policy:
+    path: src/runtime-policy
+  schemas:
+    path: runtime/schemas
+  scripts:
+    path: runtime/scripts
+  templates:
+    path: runtime/templates
+knowledge_architecture:
+  canonical_root: knowledge
+  custom_gpt:
+    priority:
+      - knowledge/decision-guide.md
+      - knowledge/pattern-model-and-taxonomy.md
+      - knowledge/application-and-services.md
+      - knowledge/integration-and-messaging.md
+      - knowledge/data-and-transactions.md
+      - knowledge/resilience-scaling-cloud.md
+runtime:
+  primary: none
+  chat_zip:
+    enabled: true
+    entrypoint: START-HERE.md
+    start_here_template: build-templates/START-HERE.chat.md.tpl
+  custom_gpt:
+    enabled: true
+    instruction:
+      mode: compressed
+      max_characters: 8000
+    knowledge:
+      strategy: identical
+      max_files: 20
+    templates:
+      capabilities: build-templates/capabilities.md.tpl
+      compatibility: build-templates/COMPATIBILITY.md.tpl
+      readme: build-templates/README.custom-gpt.md.tpl
+development:
+  plan: docs/development-plan.md
+  status: project-status.yaml
+testing:
+  manifest: tests/test-manifest.yaml
+  manifest_schema: schemas/project-status.schema.json
+  eval_case_schema: schemas/eval-case.schema.json
+runtime_parity:
+  model: runtime-parity.yaml
+platform_validation:
+  script: scripts/validate_distributions.py
+ci:
+  enabled: true
+  default: true
+  workflow: .github/workflows/ci.yml
+release:
+  github:
+    enabled: true
+    default: true
+    optional: false
+    version_source: github_release_tag
+    workflow: .github/workflows/release.yml

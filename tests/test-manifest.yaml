@@ -1,0 +1,12 @@
+schema_version: 1
+project: arkitekturmonsterguiden
+suites:
+  - id: structural
+    type: deterministic
+    command: python scripts/run_tests.py
+  - id: instruction-adherence
+    type: contract
+    command: python scripts/validate_instruction_adherence.py --project-root .
+  - id: domain-recommendations
+    type: qualitative-eval
+    path: evals/domain

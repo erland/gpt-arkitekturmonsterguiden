@@ -1,0 +1,6 @@
+id: blank-idea-001
+features:
+  structured_knowledge: true
+  repeatable_outputs: true
+expected:
+  profile: standard
