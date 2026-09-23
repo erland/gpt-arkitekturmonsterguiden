@@ -25,3 +25,8 @@ python scripts/validate_workflow_parity.py
 ## Release
 
 CI körs vid push, pull request och manuell start. En publicerad GitHub Release bygger projekt-, Chat-, Custom GPT- och Claude Projects-artefakter. Release-taggen är versionskälla.
+
+
+## GPT Byggaren 1.5
+
+Migreringen till GPT Byggaren 1.5.0 är klar och verifierad. ChatGPT Chat, ChatGPT Custom och Claude Projects är aktiva peer runtimes.
