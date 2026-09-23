@@ -1,23 +1,33 @@
 # Status
 
-Version 1.0.0 är fortsatt stabil baslinje.
+**PASS – migreringen till GPT Byggaren 1.5.0 är klar.**
 
-**Migrering till GPT Byggaren 1.5.0 pågår – steg 20.**
+Version 1.0.0 är fortsatt stabil domänbaslinje.
 
-## Verifierat i steg 19
+## Slutverifiering
 
-- runtime parity omfattar alla fem registrerade runtimes,
-- paritetskategorier: behavior, capability, artifact, workspace_state och tool,
-- ChatGPT Chat, ChatGPT Custom och Claude Projects är aktiva,
-- OpenCode och OpenAI Plugin är explicit reducerade/inaktiva,
-- aktiva runtime-kontrakt verifieras mot samma plattformsneutrala kontrakt,
-- canonical kärnmarkörer verifieras i alla tre aktiva runtimes,
-- release-readiness verifierar delivery manifest, checksummor och ZIP-integritet,
-- parity/readiness är blockerande i både CI och release,
-- full CI-kedja: PASS.
+- steg 1–20 verifierade,
+- lint: PASS,
+- deterministiska tester: PASS,
+- instruction-adherence: PASS,
+- Chat ZIP: PASS,
+- Custom GPT: PASS,
+- Claude Projects: PASS,
+- fem-runtime parity: PASS,
+- release-readiness: PASS,
+- final project hygiene: PASS,
+- CI/release workflow parity: PASS,
+- delivery manifest, checksummor och ZIP-integritet: PASS.
 
-## Nästa rekommenderade steg
+## Runtime-status
 
-**20 – Slutvalidera migreringen och releasekedjan.**
+Aktiva:
+- ChatGPT Chat
+- ChatGPT Custom
+- Claude Projects
 
-Kontrollera full regression, CI/release-paritet, releaseartefakter och dokumentation innan migreringen markeras klar.
+Bedömda men inaktiva:
+- OpenCode
+- OpenAI Plugin
+
+Projektet är tillbaka i förvaltningsläge.
