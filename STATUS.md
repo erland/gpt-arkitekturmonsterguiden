@@ -2,21 +2,21 @@
 
 Version 1.0.0 är fortsatt stabil baslinje.
 
-**Migrering till GPT Byggaren 1.5.0 pågår – steg 18.**
+**Migrering till GPT Byggaren 1.5.0 pågår – steg 19.**
 
-## Verifierat i steg 17
+## Verifierat i steg 18
 
-- plattformsneutrala capability-, artifact-, workspace/state- och tool-kontrakt,
-- guided modellrobusthet utan persistent state,
-- operativ kärna i canonical instruktion,
-- fyra model-compatibility-evals,
-- fem registrerade runtimes bedömda,
-- ChatGPT Chat, ChatGPT Custom och Claude Projects valda som aktiva mål,
-- OpenCode och OpenAI Plugin reducerade/inaktiva,
-- full befintlig CI-kedja: PASS.
+- Chat ZIP har explicit 1.5-runtime-kontrakt,
+- Custom GPT har explicit 1.5-runtime-kontrakt,
+- Claude Projects byggs som aktiv peer-runtime,
+- Claude-paketet innehåller Project Instructions, Knowledge och runtime-contract,
+- Claude Projects kräver inte `CLAUDE.md` eller andra Claude Code-konventioner,
+- alla tre aktiva runtimes bär samma kritiska canonical kärnbeteende,
+- CI och release bygger Chat, Custom GPT och Claude Projects,
+- full CI-kedja: PASS.
 
 ## Nästa rekommenderade steg
 
-**18 – Anpassa distributioner och bygg Claude Projects.**
+**19 – Generaliserad runtime parity och release readiness.**
 
-De tre aktiva runtimes ska härledas från samma 1.5-kontrakt och bära samma kritiska kärnbeteende.
+Behavior, capability, artifact, workspace_state och tool ska jämföras över alla fem registrerade runtimes. Chat, Custom GPT och Claude Projects är aktiva; OpenCode och OpenAI Plugin förblir reducerade/inaktiva.
