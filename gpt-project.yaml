@@ -10,6 +10,37 @@ analysis:
     structured_knowledge: true
     repeatable_outputs: true
     moderate_workflow: true
+  runtime:
+    strategy: peer_candidates
+    candidates:
+      - runtime_id: chatgpt_chat
+        suitability: ready
+        activate_by_default: true
+        reason: Canonical instruktion, Knowledge och optional webbresearch passar direkt i Chat.
+      - runtime_id: chatgpt_custom
+        suitability: ready
+        activate_by_default: true
+        reason: Kärnflödet ryms inom instruktion- och Knowledge-gränserna och kräver inget persistent workspace.
+      - runtime_id: claude_project
+        suitability: ready
+        activate_by_default: true
+        reason: Project Instructions och Knowledge kan bära hela kärnflödet; aktuell produktresearch är plattformsberoende på samma sätt som i övriga runtimes.
+      - runtime_id: opencode
+        suitability: reduced
+        activate_by_default: false
+        reason: Kärnanalysen kan köras men lokal workspace/shell-exekvering tillför ingen central förmåga för rådgivningsflödet.
+      - runtime_id: openai_plugin
+        suitability: reduced
+        activate_by_default: false
+        reason: Skills kan bära referensmaterial men Plugin v1 tillför inget nödvändigt till den primära rådgivningsuppgiften.
+
+model_robustness:
+  level: guided
+  rationale: Flerstegsanalysen behöver en kort operativ kärna och gates men inget långlivat state.
+  operational_core: true
+  explicit_workflow: false
+  deterministic_gates: true
+  model_compatibility_evals: true
 instructions:
   canonical: src/instructions/system.md
   core_contract:
@@ -19,6 +50,7 @@ instructions:
       - "Rekommendera den enklaste tillräckliga lösningen"
       - "Redovisa antaganden och osäkerheter"
       - "När ett alternativ bör väljas i stället"
+      - "Operativ kärna"
     required_runtime_dependencies: []
     max_required_file_hops: 1
     knowledge_may_not_be_required_for_core_behavior: true
@@ -33,6 +65,92 @@ structure:
     path: runtime/scripts
   templates:
     path: runtime/templates
+capabilities:
+  contract_version: 1
+  schema: schemas/capability-contract.schema.json
+  recommendation_mode: inferred_from_use_case
+  ask_user_only_when_business_choice_is_ambiguous: true
+  requirements:
+    web:
+      level: recommended
+      reason: Behövs för aktuella produkt-, standard-, versions- och molntjänstfrågor.
+    filesystem:
+      read: optional
+      write: optional
+    shell:
+      level: not_required
+    code_execution:
+      level: not_required
+    structured_data:
+      level: optional
+      reason: Strukturerad JSON kan levereras på uttrycklig begäran.
+    persistent_state:
+      level: not_required
+    external_tools:
+      level: optional
+    image_generation:
+      level: not_required
+
+artifacts:
+  contract_version: 1
+  schema: schemas/artifact-contract.schema.json
+  outputs:
+    recommendation:
+      kind: document
+      format: markdown
+      requirement: required
+      persistence: ephemeral
+      multiplicity: one
+    adr_draft:
+      kind: document
+      format: markdown
+      requirement: conditional
+      condition: Användaren ber om ADR-underlag.
+      persistence: ephemeral
+      multiplicity: one
+    structured_json:
+      kind: data
+      format: json
+      requirement: conditional
+      condition: Användaren ber uttryckligen om strukturerad JSON.
+      persistence: ephemeral
+      multiplicity: one
+    project_package:
+      kind: package
+      format: zip
+      requirement: required
+      persistence: persistent
+      multiplicity: one
+    runtime_package:
+      kind: distribution
+      format: zip
+      requirement: required
+      persistence: persistent
+      multiplicity: many
+
+workspace_state:
+  contract_version: 1
+  schema: schemas/workspace-state-contract.schema.json
+  workspace:
+    requirement: not_required
+    persistence: not_required
+    portable: false
+    separate_from_assistant: false
+    description: Kärnuppgiften är rådgivning och kräver inget separat persistent workspace.
+  state:
+    requirement: not_required
+    persistence: not_required
+    authority: none
+    description: Varje arkitekturanalys kan genomföras utan långlivad state mellan sessioner.
+  runtime_preferences:
+    chat: none
+    agent: none
+
+tools:
+  contract_version: 1
+  schema: schemas/tool-contract.schema.json
+  tools: []
+
 knowledge_architecture:
   canonical_root: knowledge
   custom_gpt:
@@ -83,3 +201,29 @@ release:
     optional: false
     version_source: github_release_tag
     workflow: .github/workflows/release.yml
+
+
+build:
+  deterministic: true
+  create_manifest: true
+  create_checksums: true
+  build_project_zip: true
+  build_chat_zip: true
+  build_custom_gpt_zip: true
+  build_claude_zip: true
+  build_opencode_zip: false
+  build_plugin_zip: false
+
+runtime_parity:
+  registered_runtimes:
+    - chatgpt_chat
+    - chatgpt_custom
+    - claude_project
+    - opencode
+    - openai_plugin
+  compared_categories:
+    - behavior
+    - capability
+    - artifact
+    - workspace_state
+    - tool
