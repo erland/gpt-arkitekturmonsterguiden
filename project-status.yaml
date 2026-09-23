@@ -1,13 +1,13 @@
 schema_version: 1
 progress:
-  current_step: 19
-  last_completed_step: 18
-  completed_steps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+  current_step: 20
+  last_completed_step: 19
+  completed_steps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
   skipped_steps: []
   inserted_steps: [17, 18, 19, 20]
 validation:
   last_result: pass
-  details: Steg 18 är CI-verifierat. Chat, Custom GPT och Claude Projects byggs och valideras från samma canonical kontrakt.
+  details: Steg 19 är CI-verifierat. Fem-runtime parity och release-readiness passerar för tre aktiva runtimes.
 project_hygiene:
   last_result: pass
 release:
@@ -15,6 +15,6 @@ release:
   version: 1.0.0
 blocking_issues: []
 next_step:
-  recommended: 19
-  title: Generaliserad runtime parity och release readiness
-  reason: Steg 18 är verifierat. Nästa steg är att jämföra alla fem registrerade runtimes och göra release-readiness blockerande.
+  recommended: 20
+  title: Slutvalidera migreringen och releasekedjan
+  reason: Steg 19 är verifierat. Nästa steg är full regression, CI/release-paritet och slutlig releasevalidering.
