@@ -1,0 +1,6 @@
+id: model-compat-current-facts
+scenario: Rekommendationen beror på en aktuell molntjänsts funktion eller versionsspecifik dokumentation.
+expected:
+  - verifiera aktuell primärkälla när webbstöd finns
+  - skilj källfakta från egen inferens
+  - gör villkorad slutsats om aktuell verifiering inte kan göras
