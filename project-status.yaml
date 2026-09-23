@@ -1,13 +1,13 @@
 schema_version: 1
 progress:
   current_step: 20
-  last_completed_step: 19
-  completed_steps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  last_completed_step: 20
+  completed_steps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
   skipped_steps: []
   inserted_steps: [17, 18, 19, 20]
 validation:
   last_result: pass
-  details: Steg 19 är CI-verifierat. Fem-runtime parity och release-readiness passerar för tre aktiva runtimes.
+  details: Steg 20 är slutverifierat. Full regression, runtime parity, release-readiness och CI/release workflow parity passerar.
 project_hygiene:
   last_result: pass
 release:
@@ -15,6 +15,6 @@ release:
   version: 1.0.0
 blocking_issues: []
 next_step:
-  recommended: 20
-  title: Slutvalidera migreringen och releasekedjan
-  reason: Steg 19 är verifierat. Nästa steg är full regression, CI/release-paritet och slutlig releasevalidering.
+  recommended: null
+  title: Förvaltning
+  reason: Samtliga steg 1–20 är verifierade. Migreringen till GPT Byggaren 1.5.0 är klar.
