@@ -405,3 +405,50 @@ Projektet är framgångsrikt när GPT:n:
 ## 9. Närmast rekommenderade steg
 
 Samtliga planerade steg är genomförda. Projektet är i förvaltningsläge efter stabil version 1.0.0.
+
+
+---
+
+### Steg 17 – GPT Byggaren 1.5-kontrakt och guided modellrobusthet
+
+**Mål:** Migrera Arkitekturmönsterguidens canonical kontrakt till GPT Byggaren 1.5.0 utan att ändra domänmetoden.
+
+**Leveranser:**
+- capability-, artifact-, workspace/state- och tool-kontrakt,
+- guided modellrobust profil,
+- kort operativ kärna,
+- fyra modellkompatibilitetsscenarier,
+- explicit bedömning av fem registrerade runtimes.
+
+**Klart när:**
+- befintlig CI är grön,
+- Custom GPT håller sig under 8 000 tecken,
+- befintliga kvalitativa evals och distributionsvalideringar inte regresserar.
+
+### Steg 18 – Anpassa distributioner och bygg Claude Projects
+
+**Mål:** Låta Chat, Custom GPT och Claude Projects härledas från samma 1.5-kontrakt.
+
+**Klart när:**
+- alla tre aktiva distributioner bär samma kritiska kärnbeteende,
+- runtime-kontrakt finns i aktiva distributioner,
+- Claude Projects innehåller Project Instructions, Knowledge och kompatibilitetsbeskrivning.
+
+### Steg 19 – Generaliserad runtime parity och release readiness
+
+**Mål:** Utöka parity/readiness till fem registrerade peer runtimes.
+
+**Klart när:**
+- behavior, capability, artifact, workspace_state och tool jämförs,
+- Chat, Custom GPT och Claude Projects verifieras som aktiva,
+- OpenCode och OpenAI Plugin har explicit reducerad/inaktiv status,
+- release-readiness blockerar runtime- eller artefaktdrift.
+
+### Steg 20 – Slutvalidera migreringen och releasekedjan
+
+**Mål:** Verifiera full regression, CI/release-paritet, releaseartefakter och dokumentation.
+
+**Klart när:**
+- samtliga aktiva distributioner och kvalitetsgrindar passerar,
+- dokumentationen beskriver 1.5-arkitekturen,
+- projektet är redo att mergeas och releasas.
