@@ -1,13 +1,13 @@
 schema_version: 1
 progress:
-  current_step: 17
-  last_completed_step: 16
-  completed_steps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+  current_step: 18
+  last_completed_step: 17
+  completed_steps: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
   skipped_steps: []
   inserted_steps: [17, 18, 19, 20]
 validation:
-  last_result: pending
-  details: Version 1.0.0 är stabil baslinje. GPT Byggaren 1.5-migrering steg 17 väntar på CI-verifiering.
+  last_result: pass
+  details: Steg 17 är CI-verifierat. GPT Byggaren 1.5-kontrakt och guided modellrobusthet passerar utan regression.
 project_hygiene:
   last_result: pass
 release:
@@ -15,6 +15,6 @@ release:
   version: 1.0.0
 blocking_issues: []
 next_step:
-  recommended: 17
-  title: GPT Byggaren 1.5-kontrakt och guided modellrobusthet
-  reason: Version 1.0.0 är stabil. Migreringen till GPT Byggaren 1.5.0 har startat och steg 17 väntar på CI-verifiering.
+  recommended: 18
+  title: Anpassa distributioner och bygg Claude Projects
+  reason: Steg 17 är verifierat. Nästa steg är att paketera runtime-kontrakt och bygga Claude Projects från samma canonical kontrakt.
