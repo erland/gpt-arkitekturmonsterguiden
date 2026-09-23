@@ -1,0 +1,6 @@
+id: model-compat-combination
+scenario: Problemet kräver både transaktionssäker publicering och ett långlivat distribuerat affärsflöde.
+expected:
+  - behandla transactional outbox och saga som kompletterande när de löser olika problem
+  - förklara ansvar och gränser
+  - redovisa nya felmoder som kombinationen skapar
