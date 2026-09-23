@@ -1,27 +1,34 @@
 schema_version: 1
-reference: canonical_capability_contract
-capabilities:
-  - id: need-analysis
-    criticality: critical
-    chat_zip: equivalent
-    custom_gpt: equivalent
-  - id: pattern-recommendation
-    criticality: critical
-    chat_zip: equivalent
-    custom_gpt: equivalent
-  - id: tradeoff-comparison
-    criticality: critical
-    chat_zip: equivalent
-    custom_gpt: equivalent
-  - id: current-product-research
-    criticality: important
-    chat_zip: platform_dependent
-    custom_gpt: platform_dependent
-  - id: adr-draft
-    criticality: important
-    chat_zip: equivalent
-    custom_gpt: equivalent
-  - id: structured-json
-    criticality: optional
-    chat_zip: equivalent
-    custom_gpt: equivalent
+reference: canonical_contract
+registered_runtimes:
+  - chatgpt_chat
+  - chatgpt_custom
+  - claude_project
+  - opencode
+  - openai_plugin
+compared_categories:
+  - behavior
+  - capability
+  - artifact
+  - workspace_state
+  - tool
+runtimes:
+  chatgpt_chat:
+    suitability: ready
+    active: true
+  chatgpt_custom:
+    suitability: ready
+    active: true
+  claude_project:
+    suitability: ready
+    active: true
+  opencode:
+    suitability: reduced
+    active: false
+  openai_plugin:
+    suitability: reduced
+    active: false
+notes:
+  - Chat, Custom GPT och Claude Projects bär samma kritiska canonical beteende.
+  - OpenCode tillför ingen nödvändig kärnförmåga för rådgivningsflödet.
+  - OpenAI Plugin förblir inaktiv eftersom skills inte behövs för kärnuppgiften.

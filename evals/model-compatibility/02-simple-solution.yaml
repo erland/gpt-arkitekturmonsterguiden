@@ -1,0 +1,6 @@
+id: model-compat-simple-solution
+scenario: Ett enkelt system föreslås byggas med microservices trots att oberoende livscykel och teamautonomi saknas.
+expected:
+  - pröva en enklare lösning först
+  - rekommendera den enklaste tillräckliga lösningen
+  - redovisa vilka framtida villkor som skulle motivera microservices

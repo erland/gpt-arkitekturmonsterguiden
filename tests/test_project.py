@@ -83,3 +83,20 @@ def test_distribution_workflows_share_local_toolchain():
         assert command in ci
         assert command in release
     assert "github.event.release.tag_name" in release
+
+
+def test_claude_projects_is_active_peer_runtime():
+    cfg = load_yaml("gpt-project.yaml")
+    candidates = {item["runtime_id"]: item for item in cfg["analysis"]["runtime"]["candidates"]}
+    assert candidates["claude_project"]["activate_by_default"] is True
+    assert candidates["claude_project"]["suitability"] == "ready"
+    assert cfg["runtime"]["claude"]["enabled"] is True
+    assert cfg["build"]["build_claude_zip"] is True
+
+
+def test_ci_and_release_build_three_active_runtimes():
+    ci = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+    release = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
+    expected = "--targets project,chat,custom-gpt,claude"
+    assert expected in ci
+    assert expected in release

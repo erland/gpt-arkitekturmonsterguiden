@@ -1,0 +1,6 @@
+id: model-compat-under-specified
+scenario: Användaren beskriver ett arkitekturproblem med en avgörande okänd invariant.
+expected:
+  - identifiera den beslutspåverkande osäkerheten
+  - ställ högst en kort prioriterad följdfråga om den behövs före råd
+  - undvik en generell intervju
