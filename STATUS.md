@@ -2,22 +2,21 @@
 
 Version 1.0.0 är fortsatt stabil baslinje.
 
-**Migrering till GPT Byggaren 1.5.0 pågår – steg 17.**
+**Migrering till GPT Byggaren 1.5.0 pågår – steg 18.**
 
-Infört:
+## Verifierat i steg 17
+
 - plattformsneutrala capability-, artifact-, workspace/state- och tool-kontrakt,
-- guided modellrobusthet utan onödigt persistent state,
+- guided modellrobusthet utan persistent state,
 - operativ kärna i canonical instruktion,
 - fyra model-compatibility-evals,
-- fem registrerade runtimes bedömda.
+- fem registrerade runtimes bedömda,
+- ChatGPT Chat, ChatGPT Custom och Claude Projects valda som aktiva mål,
+- OpenCode och OpenAI Plugin reducerade/inaktiva,
+- full befintlig CI-kedja: PASS.
 
-Aktiva mål:
-- ChatGPT Chat
-- ChatGPT Custom
-- Claude Projects
+## Nästa rekommenderade steg
 
-Bedömda men inaktiva:
-- OpenCode
-- OpenAI Plugin
+**18 – Anpassa distributioner och bygg Claude Projects.**
 
-Steg 17 markeras klart först när befintlig CI har verifierat att version 1.0.0-beteendet inte har regresserat.
+De tre aktiva runtimes ska härledas från samma 1.5-kontrakt och bära samma kritiska kärnbeteende.
