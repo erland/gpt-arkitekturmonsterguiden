@@ -2,11 +2,12 @@
 
 GPT-projekt för beslutsorienterade rekommendationer om arkitekturmönster för system, integration, distribuerade lösningar och moln.
 
-Projektet bygger tre aktiva peer-distributioner från samma canonical kontrakt:
+Projektet bygger fyra aktiva peer-distributioner från samma canonical kontrakt:
 
 - Chat ZIP för användning som GPT-kontext i en konversation
 - Custom GPT-paket för konfigurering i GPT Builder
 - Claude Projects-paket med Project Instructions och Knowledge
+- OpenAI Plugin-paket som skills-first peer-runtime
 
 ## Lokal validering
 
@@ -24,9 +25,9 @@ python scripts/validate_workflow_parity.py
 
 ## Release
 
-CI körs vid push, pull request och manuell start. En publicerad GitHub Release bygger projekt-, Chat-, Custom GPT- och Claude Projects-artefakter. Release-taggen är versionskälla.
+CI körs vid push, pull request och manuell start. En publicerad GitHub Release bygger projekt-, Chat-, Custom GPT-, Claude Projects- och OpenAI Plugin-artefakter. Release-taggen är versionskälla.
 
 
 ## GPT Byggaren 1.5
 
-Migreringen till GPT Byggaren 1.5.0 är klar och verifierad. ChatGPT Chat, ChatGPT Custom och Claude Projects är aktiva peer runtimes.
+Projektet följer GPT Byggaren 1.5.1. ChatGPT Chat, ChatGPT Custom, Claude Projects och OpenAI Plugin är aktiva peer runtimes. Pluginen är skills-first, kräver inget persistent state och innehåller inga runtime-skript eller MCP-wrapper.
