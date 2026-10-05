@@ -26,9 +26,10 @@ runtimes:
     suitability: reduced
     active: false
   openai_plugin:
-    suitability: reduced
-    active: false
+    suitability: ready
+    active: true
+    compatibility: equivalent_runtime_dependent
 notes:
   - Chat, Custom GPT och Claude Projects bär samma kritiska canonical beteende.
   - OpenCode tillför ingen nödvändig kärnförmåga för rådgivningsflödet.
-  - OpenAI Plugin förblir inaktiv eftersom skills inte behövs för kärnuppgiften.
+  - OpenAI Plugin är en aktiv skills-first peer-runtime. Kärnbeteendet kräver varken persistent state, runtime-skript eller custom tools; aktuell produkt-/standardresearch och filinput är explicita hostberoenden.
