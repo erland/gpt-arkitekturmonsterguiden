@@ -23,7 +23,7 @@ for marker in shared:
     if marker not in release:
         errors.append(f"Release missing: {marker}")
 
-target = "--targets project,chat,custom-gpt,claude"
+target = "--targets project,chat,custom-gpt,claude,plugin"
 if target not in ci or target not in release:
     errors.append("CI and release must build the same active targets")
 if "github.event.release.tag_name" not in release:
