@@ -1,6 +1,6 @@
 # Status
 
-**PASS – migreringen till GPT Byggaren 1.5.0 är klar.**
+**PASS – migreringen till GPT Byggaren 1.5.1 är klar.**
 
 Version 1.0.0 är fortsatt stabil domänbaslinje.
 
@@ -13,7 +13,8 @@ Version 1.0.0 är fortsatt stabil domänbaslinje.
 - Chat ZIP: PASS,
 - Custom GPT: PASS,
 - Claude Projects: PASS,
-- fem-runtime parity: PASS,
+- OpenAI Plugin: valideras i aktuell PR,
+- fem-runtime parity: valideras i aktuell PR,
 - release-readiness: PASS,
 - final project hygiene: PASS,
 - CI/release workflow parity: PASS,
@@ -25,9 +26,9 @@ Aktiva:
 - ChatGPT Chat
 - ChatGPT Custom
 - Claude Projects
-
-Bedömda men inaktiva:
-- OpenCode
 - OpenAI Plugin
 
-Projektet är tillbaka i förvaltningsläge.
+Bedömd men inaktiv:
+- OpenCode
+
+Pluginjusteringen till GPT Byggaren 1.5.1 valideras i aktuell PR; efter grön CI återgår projektet till förvaltningsläge.
