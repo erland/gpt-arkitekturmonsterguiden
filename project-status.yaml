@@ -7,7 +7,7 @@ progress:
   inserted_steps: [17, 18, 19, 20]
 validation:
   last_result: pass
-  details: Steg 20 är slutverifierat. Full regression, runtime parity, release-readiness och CI/release workflow parity passerar.
+  details: GPT Byggaren 1.5.1-pluginjusteringen är implementerad och valideras av aktuell PR-CI: full regression, runtime parity, release-readiness och workflow parity.
 project_hygiene:
   last_result: pass
 release:
@@ -15,6 +15,6 @@ release:
   version: 1.0.0
 blocking_issues: []
 next_step:
-  recommended: null
-  title: Förvaltning
-  reason: Samtliga steg 1–20 är verifierade. Migreringen till GPT Byggaren 1.5.0 är klar.
+  recommended: validate_and_merge
+  title: Validera och mergea OpenAI Plugin
+  reason: OpenAI Plugin har aktiverats som skills-first peer-runtime enligt GPT Byggaren 1.5.1 och ska verifieras av aktuell PR-CI.
