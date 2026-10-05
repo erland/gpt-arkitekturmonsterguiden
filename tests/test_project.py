@@ -94,9 +94,22 @@ def test_claude_projects_is_active_peer_runtime():
     assert cfg["build"]["build_claude_zip"] is True
 
 
-def test_ci_and_release_build_three_active_runtimes():
+def test_ci_and_release_build_four_active_runtimes():
     ci = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
     release = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
-    expected = "--targets project,chat,custom-gpt,claude"
+    expected = "--targets project,chat,custom-gpt,claude,plugin"
     assert expected in ci
     assert expected in release
+
+
+def test_openai_plugin_is_active_skills_first_peer_runtime():
+    cfg = load_yaml("gpt-project.yaml")
+    candidates = {item["runtime_id"]: item for item in cfg["analysis"]["runtime"]["candidates"]}
+    assert candidates["openai_plugin"]["activate_by_default"] is True
+    assert candidates["openai_plugin"]["suitability"] == "ready"
+    plugin = cfg["runtime"]["openai_plugin"]
+    assert plugin["enabled"] is True
+    assert plugin["mode"] == "skills_first"
+    assert plugin["mcp_generated"] is False
+    assert plugin["script_resources"] == "none"
+    assert cfg["build"]["build_plugin_zip"] is True
