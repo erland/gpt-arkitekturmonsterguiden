@@ -39,7 +39,7 @@ if not manifest_path.is_file():
 else:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     artifact_types = {item.get("type") for item in manifest.get("artifacts", [])}
-    for required in {"project_zip", "chat_zip", "custom_gpt_zip", "claude_zip", "checksums"}:
+    for required in {"project_zip", "chat_zip", "custom_gpt_zip", "claude_zip", "plugin_zip", "checksums"}:
         if required not in artifact_types:
             errors.append(f"delivery manifest missing artifact type: {required}")
 
@@ -57,6 +57,7 @@ else:
         "arkitekturmonsterguiden-chat-*.zip",
         "arkitekturmonsterguiden-custom-gpt-*.zip",
         "arkitekturmonsterguiden-claude-*.zip",
+        "arkitekturmonsterguiden-plugin-*.zip",
     ):
         matches = sorted((ROOT / "dist").glob(pattern))
         if not matches:
