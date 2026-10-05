@@ -22,8 +22,8 @@ EXPECTED_CATEGORIES = {
     "workspace_state",
     "tool",
 }
-ACTIVE = ("chatgpt_chat", "chatgpt_custom", "claude_project")
-INACTIVE = ("opencode", "openai_plugin")
+ACTIVE = ("chatgpt_chat", "chatgpt_custom", "claude_project", "openai_plugin")
+INACTIVE = ("opencode",)
 
 errors: list[str] = []
 
@@ -56,6 +56,7 @@ zip_specs = {
     "chatgpt_chat": ("arkitekturmonsterguiden-chat-*.zip", "assistant/runtime-contract.json", "assistant/instructions.md"),
     "chatgpt_custom": ("arkitekturmonsterguiden-custom-gpt-*.zip", "builder/runtime-contract.json", "builder/instructions.md"),
     "claude_project": ("arkitekturmonsterguiden-claude-*.zip", "project/runtime-contract.json", "project/instructions.md"),
+    "openai_plugin": ("arkitekturmonsterguiden-plugin-*.zip", "runtime-contract.json", "skills/arkitekturmonsterguiden/SKILL.md"),
 }
 
 core_markers = list(cfg.get("instructions", {}).get("core_contract", {}).get("required_markers", []))
@@ -83,6 +84,12 @@ for runtime_id, (pattern, contract_name, instruction_name) in zip_specs.items():
                 check(marker in instruction, f"{runtime_id} missing core marker: {marker}")
             if runtime_id in {"chatgpt_chat", "claude_project"}:
                 check(instruction == canonical, f"{runtime_id} instruction must equal canonical")
+            if runtime_id == "openai_plugin":
+                check(canonical.strip() in instruction, "openai_plugin SKILL must contain canonical behavior")
+                adapter = payload.get("adapter", {})
+                check(adapter.get("mode") == "skills_first", "openai_plugin must use skills_first mode")
+                check(adapter.get("mcp_generated") is False, "openai_plugin must not generate MCP")
+                check(adapter.get("script_resources") == [], "openai_plugin must not package scripts")
 
 report = {
     "result": "PASS" if not errors else "FAIL",

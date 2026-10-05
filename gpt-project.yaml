@@ -30,9 +30,9 @@ analysis:
         activate_by_default: false
         reason: Kärnanalysen kan köras men lokal workspace/shell-exekvering tillför ingen central förmåga för rådgivningsflödet.
       - runtime_id: openai_plugin
-        suitability: reduced
-        activate_by_default: false
-        reason: Skills kan bära referensmaterial men Plugin v1 tillför inget nödvändigt till den primära rådgivningsuppgiften.
+        suitability: ready
+        activate_by_default: true
+        reason: Skills-first passar rådgivningsflödet väl eftersom canonical beteende och Knowledge kan bäras utan persistent state, runtime-skript eller custom tools.
 
 model_robustness:
   level: guided
@@ -178,6 +178,16 @@ runtime:
     validation:
       require_instructions: true
       require_runtime_contract: true
+  openai_plugin:
+    enabled: true
+    role: peer_distribution
+    mode: skills_first
+    compatibility: equivalent_runtime_dependent
+    entrypoint: skills/arkitekturmonsterguiden/SKILL.md
+    web_dependency: host_runtime
+    file_input_dependency: host_runtime
+    mcp_generated: false
+    script_resources: none
   custom_gpt:
     enabled: true
     instruction:
@@ -223,7 +233,7 @@ build:
   build_custom_gpt_zip: true
   build_claude_zip: true
   build_opencode_zip: false
-  build_plugin_zip: false
+  build_plugin_zip: true
 
 runtime_parity:
   registered_runtimes:
