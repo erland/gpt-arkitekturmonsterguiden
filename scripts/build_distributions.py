@@ -405,6 +405,97 @@ def build_claude(root: Path, cfg: dict, build_root: Path, version: str) -> Path:
     return out
 
 
+def build_plugin(root: Path, cfg: dict, build_root: Path, version: str) -> Path:
+    out = build_root / "plugin"
+    ensure_clean_dir(out)
+
+    skill = out / "skills" / "arkitekturmonsterguiden"
+    refs = skill / "references"
+    assets = skill / "assets"
+    refs.mkdir(parents=True)
+    assets.mkdir(parents=True)
+
+    canonical = (root / cfg["instructions"]["canonical"]).read_text(encoding="utf-8").strip()
+    skill_text = (
+        "---\n"
+        "name: arkitekturmonsterguiden\n"
+        "description: Beslutsorienterad vägledning om arkitekturmönster för system, integration, data, distribuerade lösningar och cloud-native arkitektur.\n"
+        "metadata:\n"
+        "  source: generated-from-canonical-project\n"
+        "---\n\n"
+        "# Arkitekturmönsterguiden\n\n"
+        "## Runtime adapter\n\n"
+        "- Följ canonical beteende nedan som auktoritativt kärnkontrakt.\n"
+        "- Använd references när de fördjupar mönstervalet; kärnflödet får inte vara beroende av att en viss reference hittas.\n"
+        "- När aktuella produkt-, standard-, versions-, pris- eller molntjänstfakta påverkar beslutet krävs faktisk webbförmåga från hosten. Utan webb ska slutsatsen villkoras och får inte beskrivas som aktuell verifiering.\n"
+        "- Påstå endast att en uppladdad fil eller bilaga har analyserats när hosten faktiskt gett åtkomst till den.\n"
+        "- Pluginen kräver inget persistent state, innehåller inga runtime-skript eller custom tools och genererar ingen MCP-wrapper.\n"
+        "- ADR-mallen under assets är ett hjälpmedel när användaren ber om ADR-underlag; den får inte ersätta canonical beslutslogik.\n\n"
+        "## Canonical behavior\n\n"
+        + canonical
+        + "\n\n## References\n\n"
+    )
+
+    knowledge_root = root / cfg["knowledge_architecture"]["canonical_root"]
+    reference_lines = []
+    for p in sorted(knowledge_root.rglob("*")):
+        if not p.is_file() or p.name == "KNOWLEDGE.md":
+            continue
+        rel = p.relative_to(knowledge_root)
+        copy_file(p, refs / rel)
+        reference_lines.append(f"- references/{rel.as_posix()}")
+
+    templates_root = root / cfg["structure"]["templates"]["path"]
+    asset_lines = []
+    if templates_root.exists():
+        for p in sorted(templates_root.rglob("*")):
+            if not p.is_file() or p.name == "README.md":
+                continue
+            rel = p.relative_to(templates_root)
+            copy_file(p, assets / rel)
+            asset_lines.append(f"- assets/{rel.as_posix()}")
+
+    skill_text += "\n".join(reference_lines) + "\n\n## Assets\n\n" + "\n".join(asset_lines) + "\n"
+    (skill / "SKILL.md").write_text(skill_text, encoding="utf-8")
+
+    (out / "plugin.json").write_text(
+        json.dumps({
+            "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+            "name": "arkitekturmonsterguiden",
+            "version": version,
+            "description": "Beslutsorienterad guide för val, jämförelse och granskning av arkitekturmönster.",
+        }, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    write_runtime_contract(
+        out / "runtime-contract.json",
+        cfg,
+        "openai_plugin",
+        {
+            "mode": "skills_first",
+            "compatibility": "equivalent_runtime_dependent",
+            "entrypoint": "skills/arkitekturmonsterguiden/SKILL.md",
+            "web_dependency": "host_runtime",
+            "file_input_dependency": "host_runtime",
+            "persistent_state_required": False,
+            "mcp_generated": False,
+            "script_resources": [],
+            "fallback_policy": {
+                "without_web": "use_conditional_conclusions_not_current_verified_facts",
+                "without_file_access": "do_not_claim_uploaded_material_was_read",
+            },
+        },
+    )
+    (out / "README.md").write_text(
+        f"# {cfg['project']['name']} – OpenAI Plugin {version}\n\n"
+        "Skills-first peer-runtime. plugin.json ligger i ZIP-roten. Knowledge paketeras som references och ADR-mallen som asset. "
+        "Aktuell produkt-/standardresearch och filinput beror på host runtime. Inga runtime-skript eller MCP-wrapper ingår.\n",
+        encoding="utf-8",
+    )
+    (out / "VERSION").write_text(version + "\n", encoding="utf-8")
+    write_manifest(out, cfg["project"]["id"] + "-plugin", version, "plugin.json")
+    return out
+
 def project_files(root: Path) -> list[Path]:
     excluded_top = {"build", "dist", ".git"}
     result = []
@@ -441,6 +532,8 @@ def write_delivery_manifest(dist: Path, cfg: dict, version: str) -> None:
                 artifact_type = "custom_gpt_zip"
             elif "-claude-" in p.name:
                 artifact_type = "claude_zip"
+            elif "-plugin-" in p.name:
+                artifact_type = "plugin_zip"
             else:
                 artifact_type = "zip"
         elif p.name == "SHA256SUMS.txt":
@@ -471,7 +564,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", default=".")
     parser.add_argument("--version", default="0.0.0-dev")
-    parser.add_argument("--targets", default="project,chat,custom-gpt,claude")
+    parser.add_argument("--targets", default="project,chat,custom-gpt,claude,plugin")
     args = parser.parse_args()
 
     root = Path(args.project_root).resolve()
@@ -499,6 +592,11 @@ def main() -> int:
         claude_root = build_claude(root, cfg, build_root, version)
         claude_zip = dist / f"{project_id}-claude-{version}.zip"
         stable_write_zip(claude_zip, claude_root, [p for p in claude_root.rglob("*") if p.is_file()])
+
+    if "plugin" in targets and cfg.get("runtime", {}).get("openai_plugin", {}).get("enabled"):
+        plugin_root = build_plugin(root, cfg, build_root, version)
+        plugin_zip = dist / f"{project_id}-plugin-{version}.zip"
+        stable_write_zip(plugin_zip, plugin_root, [p for p in plugin_root.rglob("*") if p.is_file()])
 
     if "project" in targets:
         project_zip = dist / f"{project_id}-project.zip"
