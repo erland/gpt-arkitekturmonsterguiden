@@ -7,7 +7,7 @@ progress:
   inserted_steps: [17, 18, 19, 20]
 validation:
   last_result: pass
-  details: GPT Byggaren 1.5.1-pluginjusteringen är implementerad och valideras av aktuell PR-CI: full regression, runtime parity, release-readiness och workflow parity.
+  details: "GPT Byggaren 1.5.1-pluginjusteringen är implementerad och valideras av aktuell PR-CI: full regression, runtime parity, release-readiness och workflow parity."
 project_hygiene:
   last_result: pass
 release:
