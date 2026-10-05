@@ -129,6 +129,82 @@ def validate_claude(root: Path, cfg: dict) -> list[str]:
     return errors
 
 
+def validate_plugin(root: Path, cfg: dict) -> list[str]:
+    errors = []
+    build = root / "build" / "plugin"
+    if not build.exists():
+        return ["OpenAI Plugin build directory missing"]
+
+    required = [
+        build / "plugin.json",
+        build / "runtime-contract.json",
+        build / "README.md",
+        build / "VERSION",
+        build / "MANIFEST.json",
+        build / "skills" / "arkitekturmonsterguiden" / "SKILL.md",
+    ]
+    for p in required:
+        if not p.exists():
+            errors.append(f"Missing required Plugin file: {p.relative_to(build)}")
+
+    for p in build.rglob("*"):
+        if not p.is_file():
+            continue
+        rel = p.relative_to(build)
+        if any(part in FORBIDDEN_PARTS or part in {".github", "docs", "scripts"} for part in rel.parts):
+            errors.append(f"Forbidden plugin path: {rel}")
+
+    contract = build / "runtime-contract.json"
+    if contract.exists():
+        payload = json.loads(contract.read_text(encoding="utf-8"))
+        if payload.get("runtime_id") != "openai_plugin":
+            errors.append("Plugin runtime contract has wrong runtime_id")
+        adapter = payload.get("adapter", {})
+        if adapter.get("mode") != "skills_first":
+            errors.append("Plugin must use skills_first mode")
+        if adapter.get("compatibility") != "equivalent_runtime_dependent":
+            errors.append("Plugin compatibility must be equivalent_runtime_dependent")
+        if adapter.get("persistent_state_required") is not False:
+            errors.append("Plugin must not require persistent state")
+        if adapter.get("mcp_generated") is not False:
+            errors.append("Plugin must not generate MCP wrapper")
+        if adapter.get("script_resources") != []:
+            errors.append("Plugin must not package runtime scripts")
+
+    skill = build / "skills" / "arkitekturmonsterguiden" / "SKILL.md"
+    if skill.exists():
+        text = skill.read_text(encoding="utf-8")
+        canonical = (root / cfg["instructions"]["canonical"]).read_text(encoding="utf-8").strip()
+        if canonical not in text:
+            errors.append("Plugin SKILL does not contain canonical behavior")
+        for marker in [
+            "Utan webb ska slutsatsen villkoras",
+            "Påstå endast att en uppladdad fil eller bilaga har analyserats",
+            "genererar ingen MCP-wrapper",
+        ]:
+            if marker not in text:
+                errors.append(f"Plugin SKILL missing runtime marker: {marker}")
+
+    knowledge_root = root / cfg["knowledge_architecture"]["canonical_root"]
+    refs = build / "skills" / "arkitekturmonsterguiden" / "references"
+    for p in sorted(knowledge_root.rglob("*")):
+        if not p.is_file() or p.name == "KNOWLEDGE.md":
+            continue
+        target = refs / p.relative_to(knowledge_root)
+        if not target.exists() or target.read_bytes() != p.read_bytes():
+            errors.append(f"Plugin reference drift: {p.relative_to(knowledge_root)}")
+
+    templates_root = root / cfg["structure"]["templates"]["path"]
+    assets = build / "skills" / "arkitekturmonsterguiden" / "assets"
+    for p in sorted(templates_root.rglob("*")):
+        if not p.is_file() or p.name == "README.md":
+            continue
+        target = assets / p.relative_to(templates_root)
+        if not target.exists() or target.read_bytes() != p.read_bytes():
+            errors.append(f"Plugin asset drift: {p.relative_to(templates_root)}")
+    return errors
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", default=".")
@@ -143,6 +219,8 @@ def main() -> int:
         errors.extend(validate_custom(root, cfg))
     if cfg.get("runtime", {}).get("claude", {}).get("enabled"):
         errors.extend(validate_claude(root, cfg))
+    if cfg.get("runtime", {}).get("openai_plugin", {}).get("enabled"):
+        errors.extend(validate_plugin(root, cfg))
 
     if errors:
         print("VALIDATION: FAIL")
