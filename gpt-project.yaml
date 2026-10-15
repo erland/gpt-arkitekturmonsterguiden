@@ -46,7 +46,10 @@ model_robustness:
   deterministic_gates: true
   model_compatibility_evals: true
 instructions:
+  mode: modular_skills
   canonical: src/instructions/system.md
+  core: src/instructions/core.md
+  assembly: src/instructions/assembly.json
   core_contract:
     enabled: true
     required_markers:
@@ -341,12 +344,38 @@ skills:
   contract_version: 1
   mode: inferred
   definitions:
-  - id: arkitekturrad
-    name: arkitekturrad
-    description: Beslutsorienterad analys och rekommendation av arkitekturmönster
-      för system, integration och moln.
-    source: src/instructions/system.md
+  - id: monsterval
+    name: monsterval
+    description: Rekommendera arkitekturmönster utifrån krav.
+    source: src/skills/monsterval.md
     references:
     - knowledge/decision-guide.md
     - knowledge/pattern-model-and-taxonomy.md
-    - knowledge/response-modes.md
+  - id: monsterjamforelse
+    name: monsterjamforelse
+    description: Jämför arkitekturalternativ och svarslägen.
+    source: src/skills/monsterjamforelse.md
+    references:
+    - knowledge/decision-guide.md
+    - knowledge/pattern-model-and-taxonomy.md
+  - id: arkitekturgranskning
+    name: arkitekturgranskning
+    description: Identifiera överdesign och risker.
+    source: src/skills/arkitekturgranskning.md
+    references:
+    - knowledge/decision-guide.md
+    - knowledge/pattern-model-and-taxonomy.md
+  - id: adr
+    name: adr
+    description: Kvalitetssäkra arkitekturbeslut och ADR-underlag.
+    source: src/skills/adr.md
+    references:
+    - knowledge/decision-guide.md
+    - knowledge/pattern-model-and-taxonomy.md
+  - id: monsterkombinationer
+    name: monsterkombinationer
+    description: Analysera kombinationer och beroenden.
+    source: src/skills/monsterkombinationer.md
+    references:
+    - knowledge/decision-guide.md
+    - knowledge/pattern-model-and-taxonomy.md
