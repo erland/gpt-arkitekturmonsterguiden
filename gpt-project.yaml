@@ -21,11 +21,6 @@ analysis:
       activate_by_default: true
       reason: Canonical instruktion, Knowledge och optional webbresearch passar direkt
         i Chat.
-    - runtime_id: chatgpt_custom
-      suitability: ready
-      activate_by_default: true
-      reason: Kärnflödet ryms inom instruktion- och Knowledge-gränserna och kräver
-        inget persistent workspace.
     - runtime_id: claude_project
       suitability: ready
       activate_by_default: true
