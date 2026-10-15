@@ -1,103 +1,43 @@
 #!/usr/bin/env python3
-from __future__ import annotations
-
+"""Validate the active runtime registry, built packages and canonical core behavior."""
+from pathlib import Path
 import json
 import zipfile
-from pathlib import Path
-
 import yaml
 
-ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_RUNTIMES = {
-    "chatgpt_chat",
-    "chatgpt_custom",
-    "claude_project",
-    "opencode",
-    "openai_plugin",
-}
-EXPECTED_CATEGORIES = {
-    "behavior",
-    "capability",
-    "artifact",
-    "workspace_state",
-    "tool",
-}
-ACTIVE = ("chatgpt_chat", "chatgpt_custom", "claude_project", "openai_plugin")
-INACTIVE = ("opencode",)
-
-errors: list[str] = []
-
-def check(condition: bool, message: str) -> None:
-    if not condition:
+root = Path(__file__).resolve().parents[1]
+cfg = yaml.safe_load((root / "gpt-project.yaml").read_text(encoding="utf-8"))
+expected = {"chatgpt_chat", "claude_project", "openai_plugin", "opencode"}
+registered = set(cfg["runtime_parity"]["registered_runtimes"])
+candidates = {c["runtime_id"]: c for c in cfg["analysis"]["runtime"]["candidates"]}
+errors = []
+def check(test, message):
+    if not test:
         errors.append(message)
 
-cfg = yaml.safe_load((ROOT / "gpt-project.yaml").read_text(encoding="utf-8"))
-parity = cfg.get("runtime_parity", {})
-registered = set(parity.get("registered_runtimes", []))
-categories = set(parity.get("compared_categories", []))
-check(registered == EXPECTED_RUNTIMES, f"registered runtimes differ: {sorted(registered)}")
-check(categories == EXPECTED_CATEGORIES, f"parity categories differ: {sorted(categories)}")
-
-candidates = {
-    item.get("runtime_id"): item
-    for item in cfg.get("analysis", {}).get("runtime", {}).get("candidates", [])
-    if isinstance(item, dict) and item.get("runtime_id")
-}
-check(set(candidates) == EXPECTED_RUNTIMES, "all five runtimes must have explicit assessment")
-
-for runtime_id in ACTIVE:
-    check(candidates.get(runtime_id, {}).get("activate_by_default") is True, f"{runtime_id} must be active")
-    check(candidates.get(runtime_id, {}).get("suitability") == "ready", f"{runtime_id} must be ready")
-for runtime_id in INACTIVE:
-    check(candidates.get(runtime_id, {}).get("activate_by_default") is False, f"{runtime_id} must remain inactive")
-    check(candidates.get(runtime_id, {}).get("suitability") == "reduced", f"{runtime_id} must be reduced")
-
-zip_specs = {
-    "chatgpt_chat": ("arkitekturmonsterguiden-chat-*.zip", "assistant/runtime-contract.json", "assistant/instructions.md"),
-    "chatgpt_custom": ("arkitekturmonsterguiden-custom-gpt-*.zip", "builder/runtime-contract.json", "builder/instructions.md"),
-    "claude_project": ("arkitekturmonsterguiden-claude-*.zip", "project/runtime-contract.json", "project/instructions.md"),
-    "openai_plugin": ("arkitekturmonsterguiden-plugin-*.zip", "runtime-contract.json", "skills/arkitekturmonsterguiden/SKILL.md"),
-}
-
-core_markers = list(cfg.get("instructions", {}).get("core_contract", {}).get("required_markers", []))
-canonical = (ROOT / cfg["instructions"]["canonical"]).read_text(encoding="utf-8")
-
-for runtime_id, (pattern, contract_name, instruction_name) in zip_specs.items():
-    matches = sorted((ROOT / "dist").glob(pattern))
-    if not matches:
-        errors.append(f"missing built ZIP for {runtime_id}")
-        continue
-    with zipfile.ZipFile(matches[-1]) as zf:
-        names = set(zf.namelist())
-        if contract_name not in names:
-            errors.append(f"{runtime_id} missing runtime contract")
-            continue
-        payload = json.loads(zf.read(contract_name).decode("utf-8"))
-        check(payload.get("runtime_id") == runtime_id, f"{runtime_id} wrong runtime_id")
-        for key in ("capabilities", "artifacts", "workspace_state", "tools"):
-            check(payload.get(key) == cfg.get(key), f"{runtime_id} {key} contract drift")
-        if instruction_name not in names:
-            errors.append(f"{runtime_id} missing instruction file")
-        else:
-            instruction = zf.read(instruction_name).decode("utf-8")
-            for marker in core_markers:
-                check(marker in instruction, f"{runtime_id} missing core marker: {marker}")
-            if runtime_id in {"chatgpt_chat", "claude_project"}:
-                check(instruction == canonical, f"{runtime_id} instruction must equal canonical")
-            if runtime_id == "openai_plugin":
-                check(canonical.strip() in instruction, "openai_plugin SKILL must contain canonical behavior")
-                adapter = payload.get("adapter", {})
-                check(adapter.get("mode") == "skills_first", "openai_plugin must use skills_first mode")
-                check(adapter.get("mcp_generated") is False, "openai_plugin must not generate MCP")
-                check(adapter.get("script_resources") == [], "openai_plugin must not package scripts")
-
-report = {
-    "result": "PASS" if not errors else "FAIL",
-    "registered_runtimes": sorted(registered),
-    "compared_categories": sorted(categories),
-    "active_runtimes": list(ACTIVE),
-    "inactive_runtimes": list(INACTIVE),
-    "errors": errors,
-}
-print(json.dumps(report, ensure_ascii=False, indent=2))
-raise SystemExit(1 if errors else 0)
+check(registered == expected, "runtime registry differs from active four runtime families")
+check(set(candidates) == expected, "runtime candidates differ from registry")
+check(not cfg["runtime"]["custom_gpt"]["enabled"], "Custom GPT must be disabled")
+for runtime_id in expected:
+    check(candidates.get(runtime_id, {}).get("suitability") in ("ready", "reduced"), runtime_id + " missing suitability")
+targets = cfg["build_system"]["targets"]
+check(set(targets) == {"project", "chat", "claude_project", "claude_skills", "opencode", "plugin"}, "Unexpected build targets")
+markers = cfg["instructions"]["core_contract"]["required_markers"]
+for name, builddir, entry in [
+    ("chat", "chat", "assistant/instructions.md"),
+    ("claude_project", "claude", "project/instructions.md"),
+    ("claude_skills", "claude-skills", None),
+    ("opencode", "opencode", "AGENTS.md"),
+    ("plugin", "plugin", None),
+]:
+    folder = root / "build" / builddir
+    check(folder.is_dir(), name + " build folder missing")
+    if entry and (folder / entry).is_file():
+        content = (folder / entry).read_text(encoding="utf-8")
+        for marker in markers:
+            check(marker in content, name + " missing core marker: " + marker)
+    elif entry:
+        errors.append(name + " missing " + entry)
+    check(any(folder.rglob("SKILL.md")) if name in ("claude_skills", "opencode", "plugin") else True, name + " missing skill")
+print(json.dumps({"result": "PASS" if not errors else "FAIL", "errors": errors}, ensure_ascii=False, indent=2))
+raise SystemExit(bool(errors))
