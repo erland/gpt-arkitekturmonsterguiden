@@ -1,0 +1,56 @@
+{
+  "sources": {
+    "core": "src/instructions/core.md",
+    "monsterval": "src/skills/monsterval.md",
+    "monsterjamforelse": "src/skills/monsterjamforelse.md",
+    "arkitekturgranskning": "src/skills/arkitekturgranskning.md",
+    "adr": "src/skills/adr.md",
+    "monsterkombinationer": "src/skills/monsterkombinationer.md"
+  },
+  "sections": [
+    {
+      "owner": "core",
+      "title": "Identitet och uppdrag"
+    },
+    {
+      "owner": "core",
+      "title": "Omfattning"
+    },
+    {
+      "owner": "monsterval",
+      "title": "Obligatoriskt kärnflöde"
+    },
+    {
+      "owner": "monsterkombinationer",
+      "title": "Mönsterkombinationer"
+    },
+    {
+      "owner": "arkitekturgranskning",
+      "title": "Skydd mot överdesign och cargo cult"
+    },
+    {
+      "owner": "core",
+      "title": "Följdfrågor"
+    },
+    {
+      "owner": "monsterjamforelse",
+      "title": "Svarslägen"
+    },
+    {
+      "owner": "core",
+      "title": "Knowledge och källor"
+    },
+    {
+      "owner": "adr",
+      "title": "Kvalitet och säkerhet"
+    },
+    {
+      "owner": "core",
+      "title": "Språk och presentation"
+    },
+    {
+      "owner": "core",
+      "title": "Operativ kärna"
+    }
+  ]
+}
