@@ -349,33 +349,39 @@ skills:
     description: Rekommendera arkitekturmönster utifrån krav.
     source: src/skills/monsterval.md
     references:
+    - knowledge/skill-methods/monsterval.md
     - knowledge/decision-guide.md
     - knowledge/pattern-model-and-taxonomy.md
+    - knowledge/application-and-services.md
   - id: monsterjamforelse
     name: monsterjamforelse
     description: Jämför arkitekturalternativ och svarslägen.
     source: src/skills/monsterjamforelse.md
     references:
+    - knowledge/skill-methods/monsterjamforelse.md
     - knowledge/decision-guide.md
-    - knowledge/pattern-model-and-taxonomy.md
+    - knowledge/response-modes.md
   - id: arkitekturgranskning
     name: arkitekturgranskning
     description: Identifiera överdesign och risker.
     source: src/skills/arkitekturgranskning.md
     references:
-    - knowledge/decision-guide.md
-    - knowledge/pattern-model-and-taxonomy.md
+    - knowledge/skill-methods/arkitekturgranskning.md
+    - knowledge/resilience-scaling-cloud.md
+    - knowledge/data-and-transactions.md
   - id: adr
     name: adr
     description: Kvalitetssäkra arkitekturbeslut och ADR-underlag.
     source: src/skills/adr.md
     references:
+    - knowledge/skill-methods/adr.md
     - knowledge/decision-guide.md
-    - knowledge/pattern-model-and-taxonomy.md
+    - knowledge/response-modes.md
   - id: monsterkombinationer
     name: monsterkombinationer
     description: Analysera kombinationer och beroenden.
     source: src/skills/monsterkombinationer.md
     references:
-    - knowledge/decision-guide.md
-    - knowledge/pattern-model-and-taxonomy.md
+    - knowledge/skill-methods/monsterkombinationer.md
+    - knowledge/integration-and-messaging.md
+    - knowledge/data-and-transactions.md
