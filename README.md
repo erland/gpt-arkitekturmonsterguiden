@@ -2,32 +2,31 @@
 
 GPT-projekt för beslutsorienterade rekommendationer om arkitekturmönster för system, integration, distribuerade lösningar och moln.
 
-Projektet bygger fyra aktiva peer-distributioner från samma canonical kontrakt:
+Projektet bygger fem likvärdiga runtime-distributioner från samma canonical instruktion:
 
-- Chat ZIP för användning som GPT-kontext i en konversation
-- Custom GPT-paket för konfigurering i GPT Builder
-- Claude Projects-paket med Project Instructions och Knowledge
-- OpenAI Plugin-paket som skills-first peer-runtime
+- Chat ZIP
+- ChatGPT Plugin (Skills utan MCP eller separat Engine)
+- Claude Project
+- Claude Skills
+- OpenCode
+
+Custom GPT är avvecklad som distributionsmål; dess äldre konfiguration är bevarad för spårbarhet.
 
 ## Lokal validering
 
 ```bash
 python -m pip install -r requirements-dev.txt
-python scripts/lint_gpt_project.py --project-root .
 python scripts/run_tests.py
 python scripts/validate_instruction_adherence.py --project-root .
+python scripts/lint_gpt_project.py --project-root .
 python scripts/build_distributions.py --project-root . --version 0.0.0-dev
 python scripts/validate_distributions.py --project-root .
-python scripts/validate_runtime_parity.py
-python scripts/validate_release_readiness.py
-python scripts/validate_workflow_parity.py
 ```
+
+## Migrering 2026-10-15
+
+Byggmotorn är uppdaterad från GPT Byggaren 1.5.1 till 1.6.25. Domaininstruktion, Knowledge, evals och projektspecifika tester har bevarats. Befintlig GitHub-historik och äldre migrationsrapport följer med. Se `docs/migration-1.6.25.md`.
 
 ## Release
 
-CI körs vid push, pull request och manuell start. En publicerad GitHub Release bygger projekt-, Chat-, Custom GPT-, Claude Projects- och OpenAI Plugin-artefakter. Release-taggen är versionskälla.
-
-
-## GPT Byggaren 1.5
-
-Projektet följer GPT Byggaren 1.5.1. ChatGPT Chat, ChatGPT Custom, Claude Projects och OpenAI Plugin är aktiva peer runtimes. Pluginen är skills-first, kräver inget persistent state och innehåller inga runtime-skript eller MCP-wrapper.
+GitHub Release-taggen bestämmer versionen. CI och release genererar sex ZIP-arkiv: projekt samt fem runtimes. Verifiering i faktiska värdmiljöer återstår före stabil release.
