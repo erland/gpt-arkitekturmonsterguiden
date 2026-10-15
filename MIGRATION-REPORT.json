@@ -1,0 +1,1017 @@
+{
+  "migration": {
+    "source_class": "L2",
+    "target_contract_version": 1,
+    "status": "no_changes"
+  },
+  "decisions": [
+    {
+      "area": "capabilities",
+      "action": "preserve",
+      "confidence": "not_applicable"
+    },
+    {
+      "area": "artifacts",
+      "action": "preserve",
+      "confidence": "not_applicable"
+    },
+    {
+      "area": "workspace_state",
+      "action": "preserve",
+      "confidence": "not_applicable"
+    },
+    {
+      "area": "tools",
+      "action": "preserve",
+      "confidence": "not_applicable"
+    }
+  ],
+  "warnings": [],
+  "changes": {},
+  "opencode": {
+    "status": "ready",
+    "reasons": [],
+    "can_enable_automatically": true,
+    "required_actions": []
+  },
+  "plugin": {
+    "status": "ready",
+    "reasons": [],
+    "can_enable_automatically": true,
+    "required_actions": []
+  },
+  "safe_copy": {
+    "source_type": "directory",
+    "source_unchanged": true,
+    "project_root": ".",
+    "destination": "/mnt/data/migration_work/migrated"
+  },
+  "custom_gpt_retirement": {
+    "result": "changed",
+    "previously_enabled": true,
+    "legacy_configuration_preserved": true,
+    "automatic_plugin_conversion": false
+  },
+  "existing_project_assessment": {
+    "status": "review_required",
+    "project_contract_present": true,
+    "issues": [
+      "Legacy runtime.openai_plugin needs explicit mapping to runtime.plugin",
+      "No modern build_system.runtime_targets are declared",
+      "Previously enabled runtimes require independent parity review"
+    ],
+    "dependency_inventory": {
+      "knowledge_files": [
+        "knowledge/KNOWLEDGE.md",
+        "knowledge/application-and-services.md",
+        "knowledge/data-and-transactions.md",
+        "knowledge/decision-guide.md",
+        "knowledge/integration-and-messaging.md",
+        "knowledge/pattern-model-and-taxonomy.md",
+        "knowledge/resilience-scaling-cloud.md",
+        "knowledge/response-modes.md"
+      ],
+      "candidate_scripts": [
+        "scripts/assess_release_readiness.py",
+        "scripts/build_distributions.py",
+        "scripts/lint_gpt_project.py",
+        "scripts/project_hygiene.py",
+        "scripts/recommend_next_step.py",
+        "scripts/resume_project.py",
+        "scripts/run_tests.py",
+        "scripts/validate_distributions.py",
+        "scripts/validate_instruction_adherence.py",
+        "scripts/validate_release_candidate.py",
+        "scripts/validate_release_readiness.py",
+        "scripts/validate_runtime_parity.py",
+        "scripts/validate_stable_release.py",
+        "scripts/validate_workflow_parity.py"
+      ],
+      "integration_manifests": [],
+      "tools_verified": false,
+      "knowledge_completeness_verified": false,
+      "review_required": true,
+      "limitations": [
+        "Packaged files do not prove tool availability or permissions.",
+        "A distribution may omit original Knowledge and source dependencies."
+      ]
+    },
+    "ready_for_modern_distribution_build": false,
+    "release_ready": false
+  },
+  "legacy_plugin_plan": {
+    "result": "review_required",
+    "plan": "reconstructed-canonical/plugin-migration-plan.json"
+  },
+  "apply": {
+    "result": "changed"
+  },
+  "engine_migration": {
+    "engine_required": "needs_review",
+    "engine_status": "review_required",
+    "engine_candidates": [
+      "scripts/assess_release_readiness.py",
+      "scripts/project_hygiene.py",
+      "scripts/recommend_next_step.py",
+      "scripts/resume_project.py",
+      "scripts/run_tests.py",
+      "scripts/validate_instruction_adherence.py",
+      "scripts/validate_release_candidate.py",
+      "scripts/validate_release_readiness.py",
+      "scripts/validate_runtime_parity.py",
+      "scripts/validate_stable_release.py",
+      "scripts/validate_workflow_parity.py",
+      "tests/test_project.py"
+    ],
+    "engine_configuration_present": false,
+    "engine_selftest_verified": false,
+    "plugin_repair_status": "legacy_plugin_requires_mapping",
+    "runtime_parity_status": "unverified",
+    "automatic_plugin_repair": false,
+    "automatic_engine_activation": false,
+    "release_ready": false,
+    "required_actions": [
+      "Classify candidate Python scripts as Plugin runtime requirements, tests, or build-only tools.",
+      "If executable Plugin scripts are required, declare engine.resources and a real engine.selftest.",
+      "Rebuild Plugin using the current canonical distribution builder; inspect Skills and resources.",
+      "Validate all five distributions and test the Plugin in its actual host.",
+      "Install/verify the current canonical builder only after reviewing the copied project schema and preserving project-specific files."
+    ]
+  },
+  "canonical_build_upgrade": {
+    "status": "blocked",
+    "stage": "plugin_mapping_review",
+    "reason": "Review legacy Plugin semantics before enabling modern Plugin",
+    "release_ready": false
+  },
+  "generic_discovery": {
+    "schema_version": 1,
+    "status": "analysis_required",
+    "source_files": [
+      {
+        "path": ".github/workflows/ci.yml",
+        "sha256": "f95d27576b1ac90ecab6a98d5783c66fa5ad9a1ef11d7dae1c4b5d5ae23f76e1",
+        "size": 931,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": ".github/workflows/release.yml",
+        "sha256": "7d74396d877a2ca77a89f2ec446d259751cde9757ca3989ce4088a1b1147e1a8",
+        "size": 1338,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": ".gitignore",
+        "sha256": "abc8fb3f11db728e30b2af106a1a3aa2a3644fd0fd4418b1d664a5ef9b80be97",
+        "size": 57,
+        "candidate_roles": []
+      },
+      {
+        "path": "PROJECT.md",
+        "sha256": "2bf71d147a53036b0b04256c9205c82f8edfd46df5616a4793e8a4c5aa7c0724",
+        "size": 1250,
+        "candidate_roles": []
+      },
+      {
+        "path": "README.md",
+        "sha256": "f5f9bcd6315f96034ca7515970621b170e3158b1082ec74d052d5599ff8dada9",
+        "size": 1441,
+        "candidate_roles": []
+      },
+      {
+        "path": "STATUS.md",
+        "sha256": "ed95c23054e657624d2ce7e731894e8d4a8b4599c1ae60f63452bdd34a6cd17f",
+        "size": 802,
+        "candidate_roles": []
+      },
+      {
+        "path": "architecture.yaml",
+        "sha256": "07d81b3485b40a0762f36383d62cc9665cf5776f69a2f637c5a91b67af3c6c0f",
+        "size": 428,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "build-templates/COMPATIBILITY.md.tpl",
+        "sha256": "51d8c654d6e24acc9c896b88f14bf3788962312bd4fab7d7db3d57f44b6b2292",
+        "size": 406,
+        "candidate_roles": []
+      },
+      {
+        "path": "build-templates/README.custom-gpt.md.tpl",
+        "sha256": "6988879d0c26c05b70b9d3b5835963c5e3a74df10eee4ae65c9d8a5445c144fe",
+        "size": 444,
+        "candidate_roles": []
+      },
+      {
+        "path": "build-templates/START-HERE.chat.md.tpl",
+        "sha256": "fafda1bd37364674b896522b689157d25ecddbc89adfcda7cf44deb3c3730180",
+        "size": 684,
+        "candidate_roles": []
+      },
+      {
+        "path": "build-templates/capabilities.md.tpl",
+        "sha256": "e7fc7b5606724597cfb35149eb64d262257f178085b0d45d49c0ba00f295c9aa",
+        "size": 145,
+        "candidate_roles": []
+      },
+      {
+        "path": "docs/capability-contract.md",
+        "sha256": "b8452a30876637495a1c103c3c729ed26f695495f0b40793160370ed5e3d3546",
+        "size": 3622,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/custom-gpt-validation-report.md",
+        "sha256": "d4edf5679b312a8f179ff1241a8669b2a96577490717bbb586a5825974f5ec6e",
+        "size": 522,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/development-plan.md",
+        "sha256": "301bbdb7201a69f8f583b4bbac5b3cd9709f1811bdac60d27511b86a69a1990b",
+        "size": 15664,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/instruction-architecture.md",
+        "sha256": "f49b50c361cb0a3c4417bc819acf86568d7c430441522b06184058a32391083b",
+        "size": 924,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/recommendation-method.md",
+        "sha256": "4db995540743b716cd6fa4dc84a1cf621a54cf429e5482eca9a58f42103defb1",
+        "size": 889,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/release-candidate.md",
+        "sha256": "ec5addf8c46dbe386ab71f4db88f4b9727fc2e2ee7de173a240bde95e6ae32ea",
+        "size": 954,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/release-notes-gpt-builder-1.5.0-migration.md",
+        "sha256": "20826a3c66ff8491663243110c6bd507a521a9b591fa78dc85f4a4deab06f571",
+        "size": 714,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/release-notes-gpt-builder-1.5.1-plugin.md",
+        "sha256": "34952882c9e6bfc4e26f7053d69a220ece2f92c403d2bfb4b8528ef2e35a92b5",
+        "size": 752,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/release-readiness.md",
+        "sha256": "8ba977b825c4532909c73ae2e7fbc67876cf0c97b49e77028998bd8d01591847",
+        "size": 874,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/runtime-parity-report.md",
+        "sha256": "63145adaaec2564a13c58ef2c9874c4de690058b507ce4e68b3ca996c12db16e",
+        "size": 1595,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/stable-release.md",
+        "sha256": "31849f59b00fc92f0694d4d45908b065fcdfc6033df81bfd4ec479fef0d85497",
+        "size": 1233,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "docs/test-strategy.md",
+        "sha256": "efc49675de3e6dc06fb1774cb25b2f2fce09d3f3e8e2dd830dd0dc4a25056dac",
+        "size": 744,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "evals/domain/adr-draft.yaml",
+        "sha256": "1040c686c83f73c5fefeefce8e86077a5bcfaf4aa7c0da9304c6412848a9bf8a",
+        "size": 493,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/domain/avoid-overdesign.yaml",
+        "sha256": "22fa9a298a8950efb9eff95c6f72b5211afff438580f9feb376258b7a9a79ec2",
+        "size": 556,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/domain/current-product.yaml",
+        "sha256": "227e57f058fc91a7a285faf34931c21dbb96f276006482d77d03195c85d67732",
+        "size": 494,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/domain/event-sourcing-review.yaml",
+        "sha256": "d38086de41210c707365dc417fe9dd0ce057e069cfab5e49e26a199a62bfe91f",
+        "size": 487,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/domain/incomplete-input.yaml",
+        "sha256": "72259a2ebfd797ea615b75dbd8f70904c2f123a3cfc103a607deec43d3335852",
+        "size": 518,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/domain/pattern-combination.yaml",
+        "sha256": "fe15b370db2c854d2daa61110e1af5931befa3e258fd65af022f2e32f7b4d95a",
+        "size": 542,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/domain/retry-storm.yaml",
+        "sha256": "9da39d15a6c94aecaf078b049fef7249a901589fe6e00e182ac8f84ea0aea53c",
+        "size": 509,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/domain/saga-choice.yaml",
+        "sha256": "4775fe7660825290d829b432d2366231d9f39c93f9cf78dbc5bc5cbe79c7ef08",
+        "size": 511,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/e2e/blank-idea-001.yaml",
+        "sha256": "96f42d9a1f2d8a53dbf7477586f73b066cbb10d4b8b3af4652095e82d7d2a473",
+        "size": 115,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/instruction-adherence/bootstrap-core-001.yaml",
+        "sha256": "a5868aae8644196d65a01c752adbafa1799e5b8075fc367fa9f7242672722bba",
+        "size": 368,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/instruction-adherence/multiturn-retention-001.yaml",
+        "sha256": "4547b69653a8028908a4f6209e621b72ec2f4a5e12805aaf5ea06933e1913db8",
+        "size": 393,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/instruction-adherence/no-knowledge-core-001.yaml",
+        "sha256": "b39693112eb82d6793aa982d57dd07eb203b900f23974578e8d3a0a1d8b3d878",
+        "size": 370,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/instruction-adherence/terminal-contract-001.yaml",
+        "sha256": "4b2859c06760ae55c01872e99445eea377dec02f90cdbc4a8ada529b36deb293",
+        "size": 328,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/model-compatibility/01-under-specified.yaml",
+        "sha256": "01f7aa11a29202172816910743531b0a4308867685101566a506b8d6c895e8bc",
+        "size": 294,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/model-compatibility/02-simple-solution.yaml",
+        "sha256": "8bf3456a762cef6859a1a91595c2c1388bf114648a897af06dd38a8c9df40879",
+        "size": 325,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/model-compatibility/03-combination.yaml",
+        "sha256": "8340c0165b59805b2e640943a5c3be4ba4fc2d6874ef9e57b1a90e111ed3043b",
+        "size": 327,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/model-compatibility/04-current-facts.yaml",
+        "sha256": "2aef28180b13724456733c9ef4d4199a92f1c1d46db872ff08203b429a31e26e",
+        "size": 314,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/reference-projects/advanced.yaml",
+        "sha256": "a8dcf3ff8e8f04050d42053b28e858ebb29c5cd52f0fe9bb6028ed718ee7fec7",
+        "size": 105,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/reference-projects/simple.yaml",
+        "sha256": "ed47da89d3f7a634d771cd76aa69209b77abf5e453425aa5d1bedce8ff6b8bd7",
+        "size": 69,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "evals/reference-projects/standard.yaml",
+        "sha256": "287570dfe7a091ffb649bbbf74bed364472096c6f69c8d9155d750e6910b9377",
+        "size": 99,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "gpt-project.yaml",
+        "sha256": "13cde29da53429c4e4343955df660c581856bfbec0d2dd0c766ad174c8cc7ca2",
+        "size": 7140,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/KNOWLEDGE.md",
+        "sha256": "4ae2c462f1437fe82f1c4f948ca4d29a74fe3861748c5d8844fa973e44de2ad9",
+        "size": 144,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/application-and-services.md",
+        "sha256": "e7c04c18615463b7ea14b1f59cb5618730d0b7cfc44712bb8da942a3b9abe0ab",
+        "size": 6516,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/data-and-transactions.md",
+        "sha256": "5657c7ee1c0774d4d3967e8eac1799da83cab32e25f7d59c60d98492c25c0a81",
+        "size": 7022,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/decision-guide.md",
+        "sha256": "cb609f6d6bc69efe962abc959a4cac422f1abed5863772d6cc260419e2d474ba",
+        "size": 4935,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/integration-and-messaging.md",
+        "sha256": "1f097f7084f2fa34cd1500ea7f7142087f9542e213df42cab0d963437702e85e",
+        "size": 6529,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/pattern-model-and-taxonomy.md",
+        "sha256": "7bacfd5f3083c4cc5fbf1e20deca51b8183b438b738a32c9e5eeb9a740310b28",
+        "size": 4490,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/resilience-scaling-cloud.md",
+        "sha256": "100b01794d1f32a783ae23a97cf9b06a0d325bf780735492ab2d4a0270e6c8a5",
+        "size": 8374,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "knowledge/response-modes.md",
+        "sha256": "4daf66c5fe9b065e9c1d64c1f16458f276d11540220d3fc700e02c2ced6dfdfd",
+        "size": 3403,
+        "candidate_roles": [
+          "knowledge_candidate"
+        ]
+      },
+      {
+        "path": "project-status.yaml",
+        "sha256": "96c1b71069e5de3f4dd2cc20c0ff6e980b15e8d2fbab6f14cd07172bd867e04a",
+        "size": 742,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "reconstructed-canonical/plugin-migration-plan.json",
+        "sha256": "273b1aeee36482e085fa1bd00b50038c49fa6200aedc9947d1be25841310e0f9",
+        "size": 1304,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "requirements-dev.txt",
+        "sha256": "865bbefc83398c2d53d4d494e8c0ad2302c93e657b78b860a1eba3ac71044309",
+        "size": 13,
+        "candidate_roles": []
+      },
+      {
+        "path": "runtime/schemas/pattern.schema.json",
+        "sha256": "7c608f59e320acdd996de3412aa058fc203a6282112133d968f518a8a88777e1",
+        "size": 1385,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "runtime/schemas/recommendation.schema.json",
+        "sha256": "568a00d6d3632b6c449dce64bccf2e6080a2f5bf010e1b7f804baffee693b480",
+        "size": 561,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "runtime/scripts/README.md",
+        "sha256": "f512de77b8776f685b72daeac922551bbc1f32acff731400a256a2b85f285bbb",
+        "size": 190,
+        "candidate_roles": []
+      },
+      {
+        "path": "runtime/templates/adr.md",
+        "sha256": "b631964331fb44162f149515441ccd118ace4b7aba9e62a96548b37de247f286",
+        "size": 167,
+        "candidate_roles": []
+      },
+      {
+        "path": "runtime-parity.yaml",
+        "sha256": "8a821030af563d305c5b0c870590d9d3b4fe6323c19da16c34d7ad7676256858",
+        "size": 974,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/artifact-contract.schema.json",
+        "sha256": "a6a43ab42dad9e8f6ca7a2d3837ff0223515e76165b0eefdd4ebb9dd7a0dc23a",
+        "size": 1354,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/capability-contract.schema.json",
+        "sha256": "c922623d738c2026bf4dddcacfeb3cf9fb6c3e0865b701873566b37dbdea6b8f",
+        "size": 2483,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/delivery-manifest.schema.json",
+        "sha256": "7e19a7c7dd9eab8f816f372087ecc963e6fd88493deee5e6e4efc0ce813b1dc8",
+        "size": 1094,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/eval-case.schema.json",
+        "sha256": "3f4bb80a19ad2b36acd8db70f6242c25bd5512907337c309431da895cb356d7c",
+        "size": 1248,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/lint-report.schema.json",
+        "sha256": "4dc335a05bc9428bd04d0fcf3017d9cc1db44cda2953ea81e7736d5990016d5e",
+        "size": 1239,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/project-status.schema.json",
+        "sha256": "26dc957d0c638e8fb9be0da74e08484355cc5b3d2580a2a0cd6a016e894085cf",
+        "size": 2953,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/release-candidate.schema.json",
+        "sha256": "a82f2cffdf3a9ed6bc826e4bf901504c4aa2b9238cf36e1feb181bf5387ad0ed",
+        "size": 984,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/stable-release.schema.json",
+        "sha256": "b907533d60bb12788162a856da80619572423f959d688e44c51f0dce0726fdcc",
+        "size": 1155,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/tool-contract.schema.json",
+        "sha256": "e646dd38600d82640811be3778c41bd355d4a5dee3e3723ba18765e3c14215ed",
+        "size": 2115,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "schemas/workspace-state-contract.schema.json",
+        "sha256": "3474310e87da743687ad367e9b1b70c7bf9d8bed2aca80afa9d2a5208136454d",
+        "size": 2141,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "scripts/assess_release_readiness.py",
+        "sha256": "ba0254e7801ff38796d9698604e4429e3d192e759261e84ec343dc7405483cae",
+        "size": 4958,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/build_distributions.py",
+        "sha256": "dea3288ffeb1cdf06a64da01a4f96c298098dffb25e7e80aa6aa89775c02cae8",
+        "size": 25136,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/lint_gpt_project.py",
+        "sha256": "49cec2c21fc958491ecb83eb4249e4d50f6c7b7a97bb2df5f95e7adccb48ba49",
+        "size": 12245,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/project_hygiene.py",
+        "sha256": "576d6a308d91c6a5c1aada9d69b68fb076b3eca13a9761c1865be9d04962f75e",
+        "size": 4347,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/recommend_next_step.py",
+        "sha256": "99b6ed787f5930aab8edf3946781723799699779ea8be7019ff8077e8275efc9",
+        "size": 2903,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/resume_project.py",
+        "sha256": "ff52d160705c64dfbe1495b0618b59bd5872c37d9ad786b270887582631fc063",
+        "size": 5155,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/run_tests.py",
+        "sha256": "7f5a2a9c1bbf52f138672b7a556156a5b4f69b354c631346fa646e03f130fa6b",
+        "size": 1102,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_distributions.py",
+        "sha256": "7107bd724bac782f5a56c5a8270e1e9af1443181ebd97b4314c9532907c78786",
+        "size": 8556,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_instruction_adherence.py",
+        "sha256": "0b8d9fe208daee9573c89c6c68c925de45fc852d74df7ada50563af651453425",
+        "size": 2532,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_release_candidate.py",
+        "sha256": "2fb0418cf120720bdecf14ccf6b25a9e577637879c07c4749210ea5e5d48622a",
+        "size": 3455,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_release_readiness.py",
+        "sha256": "f91733ad0836d92cd9fb7bbd101061693053d9a205b7debdfd1a5b5bd42c3b97",
+        "size": 3088,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_runtime_parity.py",
+        "sha256": "9fd6d162dacf5590d3e02a5c4985da64e749ef0c5db6fad586cf743d70b8f402",
+        "size": 4653,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_stable_release.py",
+        "sha256": "56fbd62b3bd2de5efa4b38d47a8fa4b8f276ff0ef4e7527afa03027854ecb7ac",
+        "size": 3870,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "scripts/validate_workflow_parity.py",
+        "sha256": "ca0b2de2431b94471d07a06d870ad972846561ea56224b68c30aa7b62cdbd29f",
+        "size": 1420,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      },
+      {
+        "path": "src/conversation-starters/starters.md",
+        "sha256": "f31ed466981a1144fdfc2f856b1ca8766d66446aa89ef73f81bc35de94dac654",
+        "size": 365,
+        "candidate_roles": []
+      },
+      {
+        "path": "src/instructions/system.md",
+        "sha256": "a940c9c4d0905e5bc121c18c044f3e5e54c53c5465dd2e7c1f3a51532076427b",
+        "size": 7951,
+        "candidate_roles": [
+          "instruction_candidate"
+        ]
+      },
+      {
+        "path": "src/runtime-policy/evidence.md",
+        "sha256": "32f7e93acaa7bd42ab9260630aef5a4a997987fa0ab54a3a95b642ea2c1b1829",
+        "size": 332,
+        "candidate_roles": []
+      },
+      {
+        "path": "src/runtime-policy/operational-execution-policy.md",
+        "sha256": "2162bfafa3a6061a21d211369c15b3e9404772c0e107568ce65ffbe61e516ae5",
+        "size": 902,
+        "candidate_roles": []
+      },
+      {
+        "path": "tests/test-manifest.yaml",
+        "sha256": "08cbc66016bfb40e1d62d8f5de5b2290a27e2010692ea0d1f60d37e1b6dbee89",
+        "size": 352,
+        "candidate_roles": [
+          "configuration_candidate"
+        ]
+      },
+      {
+        "path": "tests/test_project.py",
+        "sha256": "dabbf271737b61da85058cbb016b1b4af003849ada63eef7f3b6bafffbd92ce1",
+        "size": 5020,
+        "candidate_roles": [
+          "script_candidate"
+        ]
+      }
+    ],
+    "candidates": {
+      "instruction_candidate": [
+        "src/instructions/system.md"
+      ],
+      "knowledge_candidate": [
+        "docs/capability-contract.md",
+        "docs/custom-gpt-validation-report.md",
+        "docs/development-plan.md",
+        "docs/instruction-architecture.md",
+        "docs/recommendation-method.md",
+        "docs/release-candidate.md",
+        "docs/release-notes-gpt-builder-1.5.0-migration.md",
+        "docs/release-notes-gpt-builder-1.5.1-plugin.md",
+        "docs/release-readiness.md",
+        "docs/runtime-parity-report.md",
+        "docs/stable-release.md",
+        "docs/test-strategy.md",
+        "knowledge/KNOWLEDGE.md",
+        "knowledge/application-and-services.md",
+        "knowledge/data-and-transactions.md",
+        "knowledge/decision-guide.md",
+        "knowledge/integration-and-messaging.md",
+        "knowledge/pattern-model-and-taxonomy.md",
+        "knowledge/resilience-scaling-cloud.md",
+        "knowledge/response-modes.md"
+      ],
+      "script_candidate": [
+        "scripts/assess_release_readiness.py",
+        "scripts/build_distributions.py",
+        "scripts/lint_gpt_project.py",
+        "scripts/project_hygiene.py",
+        "scripts/recommend_next_step.py",
+        "scripts/resume_project.py",
+        "scripts/run_tests.py",
+        "scripts/validate_distributions.py",
+        "scripts/validate_instruction_adherence.py",
+        "scripts/validate_release_candidate.py",
+        "scripts/validate_release_readiness.py",
+        "scripts/validate_runtime_parity.py",
+        "scripts/validate_stable_release.py",
+        "scripts/validate_workflow_parity.py",
+        "tests/test_project.py"
+      ],
+      "configuration_candidate": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/release.yml",
+        "architecture.yaml",
+        "evals/domain/adr-draft.yaml",
+        "evals/domain/avoid-overdesign.yaml",
+        "evals/domain/current-product.yaml",
+        "evals/domain/event-sourcing-review.yaml",
+        "evals/domain/incomplete-input.yaml",
+        "evals/domain/pattern-combination.yaml",
+        "evals/domain/retry-storm.yaml",
+        "evals/domain/saga-choice.yaml",
+        "evals/e2e/blank-idea-001.yaml",
+        "evals/instruction-adherence/bootstrap-core-001.yaml",
+        "evals/instruction-adherence/multiturn-retention-001.yaml",
+        "evals/instruction-adherence/no-knowledge-core-001.yaml",
+        "evals/instruction-adherence/terminal-contract-001.yaml",
+        "evals/model-compatibility/01-under-specified.yaml",
+        "evals/model-compatibility/02-simple-solution.yaml",
+        "evals/model-compatibility/03-combination.yaml",
+        "evals/model-compatibility/04-current-facts.yaml",
+        "evals/reference-projects/advanced.yaml",
+        "evals/reference-projects/simple.yaml",
+        "evals/reference-projects/standard.yaml",
+        "gpt-project.yaml",
+        "project-status.yaml",
+        "reconstructed-canonical/plugin-migration-plan.json",
+        "runtime/schemas/pattern.schema.json",
+        "runtime/schemas/recommendation.schema.json",
+        "runtime-parity.yaml",
+        "schemas/artifact-contract.schema.json",
+        "schemas/capability-contract.schema.json",
+        "schemas/delivery-manifest.schema.json",
+        "schemas/eval-case.schema.json",
+        "schemas/lint-report.schema.json",
+        "schemas/project-status.schema.json",
+        "schemas/release-candidate.schema.json",
+        "schemas/stable-release.schema.json",
+        "schemas/tool-contract.schema.json",
+        "schemas/workspace-state-contract.schema.json",
+        "tests/test-manifest.yaml"
+      ]
+    },
+    "analysis_contract": {
+      "purpose": "Classify project behavior, knowledge, dependencies and workflows based on evidence",
+      "evidence_rule": "Every proposed fact must cite a source_files.path and SHA-256",
+      "uncertainty_rule": "Mark unresolved source ambiguity for review; do not invent behavior",
+      "output": "platform-neutral reviewed project model before runtime configuration"
+    },
+    "release_ready": false,
+    "runtime_activated": false
+  },
+  "project_hygiene": {
+    "status": "review_required",
+    "missing_documents": [],
+    "possible_stale_versions": [
+      {
+        "file": "README.md",
+        "mentioned_versions": [
+          "1.5.1"
+        ]
+      },
+      {
+        "file": "STATUS.md",
+        "mentioned_versions": [
+          "1.5.1"
+        ]
+      },
+      {
+        "file": "docs/development-plan.md",
+        "mentioned_versions": [
+          "1.5.0"
+        ]
+      }
+    ],
+    "ci_references_to_reconcile": [],
+    "legacy_validator_candidates": [
+      "scripts/validate_workflow_parity.py",
+      "scripts/validate_release_readiness.py",
+      "scripts/validate_runtime_parity.py"
+    ],
+    "broken_document_links": [],
+    "open_development_checklist_items": [],
+    "open_migration_checklists": [],
+    "unresolved_status_claims": [],
+    "files_deleted": [],
+    "documentation_modified": false,
+    "required_actions": [
+      "Update README, PROJECT, STATUS, development plan and migration checklist together.",
+      "Compare legacy validator behavior with canonical checks before deleting any file.",
+      "Reconcile CI identifiers and actual validation evidence; do not claim host parity from ZIP builds.",
+      "Verify no documentation points at removed paths before release."
+    ]
+  },
+  "migration_steps": [
+    {
+      "id": "inventory",
+      "title": "Inventera källprojekt",
+      "status": "completed"
+    },
+    {
+      "id": "model",
+      "title": "Granska projektmodell och runtime-mappning",
+      "status": "completed"
+    },
+    {
+      "id": "engine",
+      "title": "Bedöm och installera kanonisk byggmotor",
+      "status": "pending_or_blocked"
+    },
+    {
+      "id": "distributions",
+      "title": "Bygg och kontrollera fem distributioner",
+      "status": "pending_or_blocked"
+    },
+    {
+      "id": "hygiene",
+      "title": "Uppdatera dokumentation och granska äldre filer",
+      "status": "review_required"
+    },
+    {
+      "id": "release",
+      "title": "Slutverifiera runtime och release",
+      "status": "pending"
+    }
+  ],
+  "next_step": {
+    "id": "engine",
+    "title": "Bedöm och installera kanonisk byggmotor"
+  }
+}
