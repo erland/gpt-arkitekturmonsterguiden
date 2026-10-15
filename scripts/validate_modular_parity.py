@@ -3,7 +3,9 @@
 import json
 from pathlib import Path
 import yaml
-from scripts.lib.canonical_skill_sources import projected_instruction
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
+from lib.canonical_skill_sources import projected_instruction
 ROOT=Path(__file__).resolve().parents[1]
 cfg=yaml.safe_load((ROOT/"gpt-project.yaml").read_text(encoding="utf-8"))
 assert cfg["instructions"]["mode"]=="modular_skills"
